@@ -1,0 +1,1749 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Linux Shell Scripting - 90 Question Self Test</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #eef2f7;
+    color: #172033;
+}
+
+.container {
+    width: min(1100px, 94%);
+    margin: 25px auto;
+}
+
+.header {
+    background: linear-gradient(135deg, #172554, #2563eb);
+    color: white;
+    padding: 30px;
+    border-radius: 18px;
+    text-align: center;
+    box-shadow: 0 8px 25px rgba(0,0,0,.15);
+}
+
+.header h1 {
+    margin: 0 0 10px;
+    font-size: 32px;
+}
+
+.header p {
+    margin: 6px;
+}
+
+.info {
+    background: white;
+    margin: 20px 0;
+    padding: 20px;
+    border-radius: 14px;
+    border-left: 6px solid #2563eb;
+}
+
+.section-title {
+    color: #1e3a8a;
+    margin-top: 35px;
+    padding: 14px 18px;
+    background: #dbeafe;
+    border-radius: 10px;
+}
+
+.question {
+    background: white;
+    margin: 16px 0;
+    padding: 22px;
+    border-radius: 14px;
+    box-shadow: 0 3px 12px rgba(0,0,0,.06);
+}
+
+.question h3 {
+    margin-top: 0;
+    line-height: 1.5;
+    color: #172554;
+}
+
+.level {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 5px 9px;
+    border-radius: 20px;
+    background: #e0e7ff;
+    color: #3730a3;
+    margin-bottom: 10px;
+}
+
+.option {
+    display: block;
+    margin: 9px 0;
+    padding: 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 9px;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.option:hover {
+    background: #eff6ff;
+    border-color: #3b82f6;
+}
+
+.option input {
+    margin-right: 9px;
+}
+
+code {
+    background: #f1f5f9;
+    color: #be123c;
+    padding: 2px 5px;
+    border-radius: 4px;
+}
+
+.submit-area {
+    text-align: center;
+    margin: 35px 0;
+}
+
+button {
+    background: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 16px 38px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #1d4ed8;
+}
+
+#result {
+    display: none;
+    background: white;
+    padding: 28px;
+    border-radius: 18px;
+    margin-top: 30px;
+    box-shadow: 0 8px 25px rgba(0,0,0,.12);
+}
+
+.score-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px,1fr));
+    gap: 14px;
+    margin: 20px 0;
+}
+
+.score {
+    text-align: center;
+    padding: 18px;
+    border-radius: 12px;
+    background: #f8fafc;
+}
+
+.score strong {
+    display: block;
+    font-size: 30px;
+}
+
+.green { color: #15803d; }
+.red { color: #dc2626; }
+.orange { color: #d97706; }
+
+.grade-box {
+    text-align: center;
+    background: #eef2ff;
+    padding: 25px;
+    border-radius: 14px;
+}
+
+.grade-box h2 {
+    font-size: 44px;
+    color: #3730a3;
+    margin: 5px;
+}
+
+.grade-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+.grade-table th,
+.grade-table td {
+    border: 1px solid #cbd5e1;
+    padding: 10px;
+    text-align: center;
+}
+
+.grade-table th {
+    background: #dbeafe;
+}
+
+.review-item {
+    margin: 12px 0;
+    padding: 16px;
+    border-radius: 10px;
+    background: #f8fafc;
+    border-left: 6px solid #94a3b8;
+}
+
+.review-correct {
+    border-left-color: #16a34a;
+}
+
+.review-wrong {
+    border-left-color: #dc2626;
+}
+
+.review-unanswered {
+    border-left-color: #f59e0b;
+}
+
+.explanation {
+    margin-top: 8px;
+    color: #475569;
+}
+
+@media(max-width:600px) {
+    .header h1 {
+        font-size: 24px;
+    }
+
+    .question {
+        padding: 16px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="header">
+    <h1>Linux Shell Scripting Self-Test</h1>
+    <p>90 Questions • Basic • Intermediate • Advanced</p>
+    <p>Automatic Scoring, Answers, Explanations & Grade</p>
+</div>
+
+<div class="info">
+    <h2>Instructions</h2>
+    <ul>
+        <li>Questions 1–30: Basic concepts</li>
+        <li>Questions 31–60: Medium / Intermediate concepts</li>
+        <li>Questions 61–90: Advanced concepts</li>
+        <li>Select one answer for every question.</li>
+        <li>Click <b>Submit Quiz</b> when finished.</li>
+        <li>Your correct, wrong and unanswered counts will be calculated automatically.</li>
+    </ul>
+</div>
+
+<form id="quizForm">
+
+<div id="questions"></div>
+
+<div class="submit-area">
+    <button type="button" onclick="submitQuiz()">Submit Quiz</button>
+</div>
+
+</form>
+
+<div id="result">
+
+<h2 style="text-align:center;">Linux Shell Scripting Test Result</h2>
+
+<div class="score-grid">
+    <div class="score">
+        <strong class="green" id="correctCount">0</strong>
+        Correct
+    </div>
+
+    <div class="score">
+        <strong class="red" id="wrongCount">0</strong>
+        Wrong
+    </div>
+
+    <div class="score">
+        <strong class="orange" id="unansweredCount">0</strong>
+        Unanswered
+    </div>
+
+    <div class="score">
+        <strong id="percentage">0%</strong>
+        Percentage
+    </div>
+</div>
+
+<div class="grade-box">
+    <p>Your Grade</p>
+    <h2 id="grade">F</h2>
+    <p id="gradeMessage"></p>
+</div>
+
+<h2>Grade Scale</h2>
+
+<table class="grade-table">
+<tr>
+    <th>Correct</th>
+    <th>Percentage</th>
+    <th>Grade</th>
+</tr>
+<tr><td>81–90</td><td>90–100%</td><td>A+</td></tr>
+<tr><td>72–80</td><td>80–89%</td><td>A</td></tr>
+<tr><td>63–71</td><td>70–79%</td><td>B+</td></tr>
+<tr><td>54–62</td><td>60–69%</td><td>B</td></tr>
+<tr><td>45–53</td><td>50–59%</td><td>C</td></tr>
+<tr><td>36–44</td><td>40–49%</td><td>D</td></tr>
+<tr><td>0–35</td><td>0–39%</td><td>F</td></tr>
+</table>
+
+<h2>Answer Review</h2>
+<div id="review"></div>
+
+</div>
+
+</div>
+
+<script>
+
+/* =========================================================
+   QUESTION BANK
+   ========================================================= */
+
+const questions = [
+
+/* =========================================================
+   BASIC - QUESTIONS 1-30
+   ========================================================= */
+
+{
+id:1, level:"Basic",
+q:"What is a shell in Linux?",
+o:[
+"A command-line interpreter",
+"A hardware component",
+"A database server",
+"A text editor"
+],
+a:0,
+e:"A shell is a command-line interpreter that accepts commands and executes them."
+},
+
+{
+id:2, level:"Basic",
+q:"What does Bash stand for?",
+o:[
+"Basic Application Shell",
+"Bourne Again Shell",
+"Binary Access Shell",
+"Boot Application System Handler"
+],
+a:1,
+e:"Bash stands for Bourne Again Shell and is one of the most widely used Unix/Linux shells."
+},
+
+{
+id:3, level:"Basic",
+q:"What is a terminal?",
+o:[
+"An interface for executing commands",
+"A Linux kernel module",
+"A file system",
+"A compiler"
+],
+a:0,
+e:"A terminal provides an interface through which users can interact with a shell and execute commands."
+},
+
+{
+id:4, level:"Basic",
+q:"What is a shell script?",
+o:[
+"A binary executable only",
+"A file containing shell commands",
+"A Linux device driver",
+"A database table"
+],
+a:1,
+e:"A shell script is a text file containing commands that a shell can execute."
+},
+
+{
+id:5, level:"Basic",
+q:"What does the shebang #!/bin/bash specify?",
+o:[
+"The script's interpreter",
+"The script's password",
+"The script's directory",
+"The script's output file"
+],
+a:0,
+e:"The shebang specifies which interpreter should be used to execute the script."
+},
+
+{
+id:6, level:"Basic",
+q:"Which symbol begins a normal Bash comment?",
+o:[
+"//",
+"#",
+"/*",
+"<!--"
+],
+a:1,
+e:"In Bash, a # begins a comment when it is not part of a quoted string or another construct."
+},
+
+{
+id:7, level:"Basic",
+q:"Which special variable contains the exit status of the most recently executed command?",
+o:[
+"$#",
+"$@",
+"$?",
+"$!"
+],
+a:2,
+e:"$? contains the exit status returned by the most recently executed foreground pipeline or command."
+},
+
+{
+id:8, level:"Basic",
+q:"Which command displays text on the terminal?",
+o:[
+"echo",
+"show",
+"display",
+"printtext"
+],
+a:0,
+e:"echo writes text or variable values to standard output."
+},
+
+{
+id:9, level:"Basic",
+q:"Which command is commonly used for formatted output?",
+o:[
+"format",
+"printf",
+"output",
+"write"
+],
+a:1,
+e:"printf provides formatted output and offers more predictable formatting than echo."
+},
+
+{
+id:10, level:"Basic",
+q:"Which command reads input from the user?",
+o:[
+"input",
+"scan",
+"read",
+"get"
+],
+a:2,
+e:"read reads a line of input from standard input and stores it in variables."
+},
+
+{
+id:11, level:"Basic",
+q:"What does stdin represent?",
+o:[
+"Standard input",
+"Standard output",
+"Standard error",
+"System input network"
+],
+a:0,
+e:"stdin is file descriptor 0 and represents standard input."
+},
+
+{
+id:12, level:"Basic",
+q:"What does stdout represent?",
+o:[
+"Standard input",
+"Standard output",
+"Standard error",
+"Shell output table"
+],
+a:1,
+e:"stdout is file descriptor 1 and represents standard output."
+},
+
+{
+id:13, level:"Basic",
+q:"What does stderr represent?",
+o:[
+"Standard input",
+"Standard output",
+"Standard error",
+"Shell terminal input"
+],
+a:2,
+e:"stderr is file descriptor 2 and is conventionally used for error messages."
+},
+
+{
+id:14, level:"Basic",
+q:"What does > do in shell redirection?",
+o:[
+"Appends output",
+"Redirects output and normally replaces the destination file",
+"Redirects input",
+"Redirects only errors"
+],
+a:1,
+e:"> redirects standard output to a destination, creating it if necessary and normally truncating an existing regular file."
+},
+
+{
+id:15, level:"Basic",
+q:"What does >> do?",
+o:[
+"Appends standard output to a file",
+"Deletes a file",
+"Redirects standard input",
+"Redirects stderr only"
+],
+a:0,
+e:">> redirects standard output and appends it to the destination."
+},
+
+{
+id:16, level:"Basic",
+q:"What does < do?",
+o:[
+"Redirects output",
+"Redirects input from a file",
+"Appends output",
+"Redirects stderr"
+],
+a:1,
+e:"< connects a file to standard input."
+},
+
+{
+id:17, level:"Basic",
+q:"Which command lists files and directories?",
+o:[
+"list",
+"ls",
+"dirlist",
+"showfiles"
+],
+a:1,
+e:"ls lists directory contents."
+},
+
+{
+id:18, level:"Basic",
+q:"Which command displays the current working directory?",
+o:[
+"where",
+"pwd",
+"cwd",
+"location"
+],
+a:1,
+e:"pwd prints the current working directory."
+},
+
+{
+id:19, level:"Basic",
+q:"Which command changes the current directory?",
+o:[
+"move",
+"cd",
+"chdirfile",
+"goto"
+],
+a:1,
+e:"cd changes the shell's current working directory."
+},
+
+{
+id:20, level:"Basic",
+q:"Which command creates a directory?",
+o:[
+"mkdir",
+"newdir",
+"makedir",
+"dircreate"
+],
+a:0,
+e:"mkdir creates directories."
+},
+
+{
+id:21, level:"Basic",
+q:"Which command creates an empty file or updates a file timestamp?",
+o:[
+"make",
+"touch",
+"newfile",
+"create"
+],
+a:1,
+e:"touch creates a file if it does not exist or updates its timestamps if it does."
+},
+
+{
+id:22, level:"Basic",
+q:"Which command copies files?",
+o:[
+"copy",
+"cp",
+"duplicate",
+"clone"
+],
+a:1,
+e:"cp copies files and, with suitable options, directories."
+},
+
+{
+id:23, level:"Basic",
+q:"Which command moves or renames files?",
+o:[
+"mv",
+"movefile",
+"rename",
+"shift"
+],
+a:0,
+e:"mv can move files/directories or rename them."
+},
+
+{
+id:24, level:"Basic",
+q:"Which command removes files?",
+o:[
+"delete",
+"erase",
+"rm",
+"removefile"
+],
+a:2,
+e:"rm removes files and, with appropriate options, directories."
+},
+
+{
+id:25, level:"Basic",
+q:"Which command displays file contents?",
+o:[
+"cat",
+"showfile",
+"readfile",
+"view"
+],
+a:0,
+e:"cat reads files and writes their contents to standard output."
+},
+
+{
+id:26, level:"Basic",
+q:"Which command displays the beginning of a file?",
+o:[
+"start",
+"head",
+"begin",
+"topfile"
+],
+a:1,
+e:"head displays the beginning portion of files."
+},
+
+{
+id:27, level:"Basic",
+q:"Which command displays the end of a file?",
+o:[
+"end",
+"bottom",
+"tail",
+"last"
+],
+a:2,
+e:"tail displays the last part of files."
+},
+
+{
+id:28, level:"Basic",
+q:"Which command searches text using patterns?",
+o:[
+"grep",
+"search",
+"findtext",
+"look"
+],
+a:0,
+e:"grep searches input for lines matching specified patterns."
+},
+
+{
+id:29, level:"Basic",
+q:"Which symbol passes the output of one command to another command?",
+o:[
+">",
+"|",
+"&&",
+"<>"
+],
+a:1,
+e:"The pipe | connects standard output of one command to standard input of another."
+},
+
+{
+id:30, level:"Basic",
+q:"Which operator runs the second command only when the first command succeeds?",
+o:[
+"||",
+"&&",
+";",
+"|"
+],
+a:1,
+e:"&& executes the following command only when the preceding command returns a successful status."
+},
+
+/* =========================================================
+   INTERMEDIATE - QUESTIONS 31-60
+   ========================================================= */
+
+{
+id:31, level:"Intermediate",
+q:"Which variable contains the number of positional arguments supplied to a Bash script?",
+o:[
+"$@",
+"$#",
+"$?",
+"$!"
+],
+a:1,
+e:"$# contains the number of positional parameters."
+},
+
+{
+id:32, level:"Intermediate",
+q:"What does $1 normally represent inside a shell script?",
+o:[
+"The script name",
+"The first positional argument",
+"The process ID",
+"The exit status"
+],
+a:1,
+e:"$1 represents the first positional parameter supplied to the script or function."
+},
+
+{
+id:33, level:"Intermediate",
+q:"What does $@ represent?",
+o:[
+"All positional parameters",
+"The current PID",
+"The exit status",
+"The number of parameters"
+],
+a:0,
+e:"$@ expands to the positional parameters, with quoting behavior preserving individual parameters when used as \"$@\"."
+},
+
+{
+id:34, level:"Intermediate",
+q:"What does export do to a shell variable?",
+o:[
+"Makes it read-only",
+"Makes it available to child processes",
+"Deletes it",
+"Converts it to an integer"
+],
+a:1,
+e:"export places a variable in the environment inherited by subsequently executed child processes."
+},
+
+{
+id:35, level:"Intermediate",
+q:"Which keyword creates a function-local variable in Bash?",
+o:[
+"private",
+"local",
+"static",
+"inside"
+],
+a:1,
+e:"local declares a variable whose scope is limited to the current function invocation."
+},
+
+{
+id:36, level:"Intermediate",
+q:"Which keyword is used to define another branch of an if statement?",
+o:[
+"elif",
+"elseif",
+"otherwise",
+"branch"
+],
+a:0,
+e:"elif provides another conditional test between if and else."
+},
+
+{
+id:37, level:"Intermediate",
+q:"Which keyword terminates an if statement in Bash?",
+o:[
+"end",
+"done",
+"fi",
+"endif"
+],
+a:2,
+e:"The Bash if construct ends with fi."
+},
+
+{
+id:38, level:"Intermediate",
+q:"Which command or construct evaluates a conditional expression in traditional shell syntax?",
+o:[
+"test",
+"check",
+"condition",
+"verify"
+],
+a:0,
+e:"test evaluates conditional expressions and returns an appropriate exit status."
+},
+
+{
+id:39, level:"Intermediate",
+q:"Which syntax is Bash's extended conditional test syntax?",
+o:[
+"(( ))",
+"[[ ]]",
+"{ }",
+"< >"
+],
+a:1,
+e:"[[ ]] is Bash's extended conditional command syntax and provides several useful features beyond traditional test."
+},
+
+{
+id:40, level:"Intermediate",
+q:"Which construct is useful for matching one value against multiple patterns?",
+o:[
+"case",
+"match",
+"select",
+"switchcase"
+],
+a:0,
+e:"case matches a word against patterns and executes the corresponding commands."
+},
+
+{
+id:41, level:"Intermediate",
+q:"Which keyword terminates a Bash case statement?",
+o:[
+"endcase",
+"done",
+"esac",
+"fi"
+],
+a:2,
+e:"A Bash case statement ends with esac."
+},
+
+{
+id:42, level:"Intermediate",
+q:"Which loop is appropriate for iterating over a list of values?",
+o:[
+"for",
+"case",
+"if",
+"selectcase"
+],
+a:0,
+e:"for iterates through a list or other word sequence."
+},
+
+{
+id:43, level:"Intermediate",
+q:"Which loop continues while its condition remains true?",
+o:[
+"until",
+"while",
+"repeat",
+"loop"
+],
+a:1,
+e:"while repeatedly executes its body while its condition succeeds."
+},
+
+{
+id:44, level:"Intermediate",
+q:"Which loop continues until its condition becomes true?",
+o:[
+"while",
+"for",
+"until",
+"repeatuntil"
+],
+a:2,
+e:"until repeatedly executes its body while its condition fails and stops once the condition succeeds."
+},
+
+{
+id:45, level:"Intermediate",
+q:"Which keyword exits the current loop?",
+o:[
+"exitloop",
+"break",
+"stop",
+"leave"
+],
+a:1,
+e:"break exits the nearest enclosing loop."
+},
+
+{
+id:46, level:"Intermediate",
+q:"Which keyword skips to the next iteration of a loop?",
+o:[
+"next",
+"skip",
+"continue",
+"resume"
+],
+a:2,
+e:"continue skips the remaining commands in the current loop iteration."
+},
+
+{
+id:47, level:"Intermediate",
+q:"Which command searches for files and directories based on criteria?",
+o:[
+"grep",
+"find",
+"locatefile",
+"search"
+],
+a:1,
+e:"find recursively searches directory trees using tests and actions."
+},
+
+{
+id:48, level:"Intermediate",
+q:"Which command extracts selected fields or character ranges from lines?",
+o:[
+"cut",
+"slice",
+"extract",
+"field"
+],
+a:0,
+e:"cut extracts selected sections of each line."
+},
+
+{
+id:49, level:"Intermediate",
+q:"Which command is commonly used to process column-oriented text?",
+o:[
+"awk",
+"column",
+"fields",
+"parse"
+],
+a:0,
+e:"awk is designed for pattern scanning and processing, especially structured text and fields."
+},
+
+{
+id:50, level:"Intermediate",
+q:"Which command performs stream-oriented text transformations?",
+o:[
+"sed",
+"edit",
+"transform",
+"streamedit"
+],
+a:0,
+e:"sed is a stream editor used for substitutions, deletions, selections and other transformations."
+},
+
+{
+id:51, level:"Intermediate",
+q:"What is a common purpose of sort?",
+o:[
+"Sort lines",
+"Delete files",
+"Search directories",
+"Change permissions"
+],
+a:0,
+e:"sort orders lines of text according to specified sorting rules."
+},
+
+{
+id:52, level:"Intermediate",
+q:"What is an important characteristic of uniq?",
+o:[
+"It removes every duplicate anywhere in a file automatically",
+"It processes duplicate adjacent lines",
+"It sorts files first",
+"It searches directories"
+],
+a:1,
+e:"uniq normally identifies or removes adjacent duplicate lines; sorting first is often used when all duplicates need to be grouped."
+},
+
+{
+id:53, level:"Intermediate",
+q:"Which command translates or deletes characters?",
+o:[
+"tr",
+"translatefile",
+"char",
+"sedchar"
+],
+a:0,
+e:"tr translates characters from one set to another or deletes selected characters."
+},
+
+{
+id:54, level:"Intermediate",
+q:"Which command can count lines, words and bytes?",
+o:[
+"count",
+"wc",
+"stat",
+"measure"
+],
+a:1,
+e:"wc reports counts such as lines, words and bytes; options can select particular counts."
+},
+
+{
+id:55, level:"Intermediate",
+q:"What does xargs primarily do?",
+o:[
+"Builds command arguments from standard input",
+"Searches regular expressions",
+"Sorts files",
+"Starts the Bash shell"
+],
+a:0,
+e:"xargs constructs command lines using items read from standard input."
+},
+
+{
+id:56, level:"Intermediate",
+q:"What does || do?",
+o:[
+"Runs the next command if the previous succeeds",
+"Runs the next command if the previous fails",
+"Runs both commands simultaneously",
+"Redirects stderr"
+],
+a:1,
+e:"|| performs logical OR command chaining: the right command runs when the left command returns a nonzero status."
+},
+
+{
+id:57, level:"Intermediate",
+q:"What does ; do in shell command syntax?",
+o:[
+"Separates commands",
+"Redirects input",
+"Starts a function",
+"Creates a variable"
+],
+a:0,
+e:"A semicolon separates commands so they can be executed sequentially."
+},
+
+{
+id:58, level:"Intermediate",
+q:"What does $(command) perform?",
+o:[
+"Command substitution",
+"Variable declaration",
+"Process termination",
+"Input redirection"
+],
+a:0,
+e:"Command substitution executes the command and substitutes its standard output into the surrounding command."
+},
+
+{
+id:59, level:"Intermediate",
+q:"In a basic regular expression, what does ^ commonly represent?",
+o:[
+"End of a line",
+"Beginning of a line",
+"Any character",
+"A literal dollar sign"
+],
+a:1,
+e:"In regular-expression contexts such as grep, ^ commonly anchors a pattern to the beginning of a line."
+},
+
+{
+id:60, level:"Intermediate",
+q:"What does $ commonly represent in a regular expression?",
+o:[
+"Beginning of a line",
+"End of a line",
+"Any character",
+"A wildcard filename"
+],
+a:1,
+e:"In regular-expression contexts, $ commonly anchors a pattern to the end of a line."
+},
+
+/* =========================================================
+   ADVANCED - QUESTIONS 61-90
+   ========================================================= */
+
+{
+id:61, level:"Advanced",
+q:"What does the shell variable $$ contain?",
+o:[
+"The PID of the current shell",
+"The PID of the last background process",
+"The number of arguments",
+"The last exit code"
+],
+a:0,
+e:"$$ expands to the process ID of the current shell."
+},
+
+{
+id:62, level:"Advanced",
+q:"What does $! contain?",
+o:[
+"The current shell PID",
+"The PID of the most recent background pipeline",
+"The last exit status",
+"The number of background jobs"
+],
+a:1,
+e:"$! expands to the process ID of the most recently executed background pipeline."
+},
+
+{
+id:63, level:"Advanced",
+q:"What does the & operator do when placed at the end of a command?",
+o:[
+"Redirects stderr",
+"Runs the command in the background",
+"Runs the command as root",
+"Repeats the command"
+],
+a:1,
+e:"A trailing & causes the shell to execute the command asynchronously in the background."
+},
+
+{
+id:64, level:"Advanced",
+q:"What does ps primarily display?",
+o:[
+"Running processes",
+"Disk partitions only",
+"Environment variables",
+"Shell aliases"
+],
+a:0,
+e:"ps reports information about processes."
+},
+
+{
+id:65, level:"Advanced",
+q:"What is top primarily used for?",
+o:[
+"Editing text",
+"Monitoring processes and system resources",
+"Creating shell functions",
+"Searching files"
+],
+a:1,
+e:"top provides an interactive view of processes and resource usage."
+},
+
+{
+id:66, level:"Advanced",
+q:"What does kill normally do?",
+o:[
+"Deletes a process executable",
+"Sends a signal to a process",
+"Always forcibly terminates a process",
+"Removes a process from ps output"
+],
+a:1,
+e:"kill sends a specified signal to a process. It does not necessarily terminate the process immediately or forcibly."
+},
+
+{
+id:67, level:"Advanced",
+q:"What does jobs display in an interactive shell?",
+o:[
+"Filesystem jobs",
+"Shell jobs such as stopped or background jobs",
+"Cron schedules",
+"Kernel threads only"
+],
+a:1,
+e:"jobs displays the active job table maintained by the current shell."
+},
+
+{
+id:68, level:"Advanced",
+q:"What does fg do?",
+o:[
+"Terminates a foreground process",
+"Brings a shell job to the foreground",
+"Starts a new shell",
+"Redirects output"
+],
+a:1,
+e:"fg resumes or brings a shell job into the foreground."
+},
+
+{
+id:69, level:"Advanced",
+q:"What does bg do?",
+o:[
+"Continues a stopped shell job in the background",
+"Creates a background user",
+"Moves a process to another terminal",
+"Starts Bash in debug mode"
+],
+a:0,
+e:"bg resumes a stopped job and runs it asynchronously in the background."
+},
+
+{
+id:70, level:"Advanced",
+q:"What is a common purpose of nohup?",
+o:[
+"Run a command while protecting it from hangup signals",
+"Force a process to use more CPU",
+"Terminate background jobs",
+"Disable all signals"
+],
+a:0,
+e:"nohup runs a command while arranging for it to ignore SIGHUP, helping it continue after a terminal closes."
+},
+
+{
+id:71, level:"Advanced",
+q:"What does bash -x do?",
+o:[
+"Compresses the script",
+"Executes the script with command tracing",
+"Runs the script as root",
+"Checks shell syntax only"
+],
+a:1,
+e:"bash -x enables execution tracing, displaying commands and expanded arguments as they are executed."
+},
+
+{
+id:72, level:"Advanced",
+q:"What does set -x enable?",
+o:[
+"Command tracing",
+"Automatic variable export",
+"Strict typing",
+"Command history deletion"
+],
+a:0,
+e:"set -x enables shell execution tracing for commands executed afterward."
+},
+
+{
+id:73, level:"Advanced",
+q:"What is the main effect of set -e?",
+o:[
+"The shell exits when a command failure meets the errexit rules",
+"All errors are ignored",
+"All variables become exported",
+"Every command runs twice"
+],
+a:0,
+e:"set -e enables errexit behavior, causing the shell to exit when a simple command or pipeline fails in contexts where errexit applies."
+},
+
+{
+id:74, level:"Advanced",
+q:"What does set -u do?",
+o:[
+"Treats unset variables as errors in relevant expansions",
+"Automatically initializes all variables",
+"Sorts variables",
+"Unsets all variables"
+],
+a:0,
+e:"set -u enables nounset behavior, causing expansions of unset variables to produce errors in relevant contexts."
+},
+
+{
+id:75, level:"Advanced",
+q:"What does set -o pipefail change?",
+o:[
+"It makes a pipeline fail when any command in it fails, subject to pipeline status rules",
+"It disables pipes",
+"It sends every command to stderr",
+"It runs pipelines in parallel"
+],
+a:0,
+e:"With pipefail enabled, a pipeline's status reflects the rightmost command that failed, or zero when all commands succeed."
+},
+
+{
+id:76, level:"Advanced",
+q:"Why is pipefail useful in shell scripts?",
+o:[
+"It helps detect failures hidden inside pipelines",
+"It makes commands execute faster",
+"It disables stderr",
+"It automatically retries commands"
+],
+a:0,
+e:"Without pipefail, the pipeline status is normally determined by the final command, potentially hiding an earlier failure."
+},
+
+{
+id:77, level:"Advanced",
+q:"What is an indexed Bash array used for?",
+o:[
+"Storing multiple values under numeric indices",
+"Storing only environment variables",
+"Creating files",
+"Defining regular expressions"
+],
+a:0,
+e:"Indexed arrays store multiple elements that can be accessed by numeric indices."
+},
+
+{
+id:78, level:"Advanced",
+q:"What is a Bash associative array used for?",
+o:[
+"Storing key-value pairs",
+"Storing only integers",
+"Creating process IDs",
+"Sorting files"
+],
+a:0,
+e:"Associative arrays store values using string keys."
+},
+
+{
+id:79, level:"Advanced",
+q:"Which Bash builtin is commonly used to process command-line options such as -a and -b?",
+o:[
+"options",
+"getopts",
+"parseopts",
+"argv"
+],
+a:1,
+e:"getopts parses positional parameters according to a specified option string."
+},
+
+{
+id:80, level:"Advanced",
+q:"What does shift do to positional parameters?",
+o:[
+"Moves positional parameters so that later parameters take earlier positions",
+"Sorts parameters alphabetically",
+"Deletes all variables",
+"Exports all parameters"
+],
+a:0,
+e:"shift discards or removes the first positional parameter and shifts the remaining positional parameters toward lower numbers."
+},
+
+{
+id:81, level:"Advanced",
+q:"Which syntax begins a Bash here document?",
+o:[
+"<<EOF",
+"<<<EOF",
+"%%EOF",
+"BEGIN EOF"
+],
+a:0,
+e:"A here document commonly begins with << followed by a delimiter such as EOF."
+},
+
+{
+id:82, level:"Advanced",
+q:"What is a here string?",
+o:[
+"A way to provide a string as standard input using <<<",
+"A multiline comment",
+"A string stored in an array",
+"A string returned by printf"
+],
+a:0,
+e:"The Bash here-string operator <<< supplies a word or string as standard input to a command."
+},
+
+{
+id:83, level:"Advanced",
+q:"What is a subshell?",
+o:[
+"A separate shell environment created to execute commands",
+"A child directory",
+"A shell alias",
+"A shell variable"
+],
+a:0,
+e:"A subshell is a separate shell execution environment; changes to shell state generally do not propagate back to the parent shell."
+},
+
+{
+id:84, level:"Advanced",
+q:"What is the purpose of trap?",
+o:[
+"Handle signals or shell events by executing specified commands",
+"Create arrays",
+"Sort processes",
+"Redirect standard input"
+],
+a:0,
+e:"trap allows a script to specify commands to execute when selected signals or shell events occur."
+},
+
+{
+id:85, level:"Advanced",
+q:"What is a signal in Unix/Linux process management?",
+o:[
+"A notification sent to a process",
+"A shell variable",
+"A filesystem permission",
+"A command alias"
+],
+a:0,
+e:"Signals are asynchronous notifications sent to processes to request or indicate events."
+},
+
+{
+id:86, level:"Advanced",
+q:"What are cron jobs primarily used for?",
+o:[
+"Scheduling commands or scripts",
+"Compiling kernels",
+"Creating users automatically",
+"Displaying running processes"
+],
+a:0,
+e:"cron provides time-based scheduling for commands and scripts."
+},
+
+{
+id:87, level:"Advanced",
+q:"What is the primary purpose of ~/.bashrc?",
+o:[
+"Configuration for interactive non-login Bash shells",
+"Kernel configuration",
+"Bootloader configuration",
+"Filesystem metadata"
+],
+a:0,
+e:"~/.bashrc commonly contains configuration and commands used when an interactive non-login Bash shell starts."
+},
+
+{
+id:88, level:"Advanced",
+q:"What is ~/.bash_profile commonly associated with?",
+o:[
+"Login shell configuration",
+"Kernel modules",
+"Filesystem mounting",
+"Network routing"
+],
+a:0,
+e:"~/.bash_profile is commonly used for login-shell initialization on systems configured to use it."
+},
+
+{
+id:89, level:"Advanced",
+q:"Which redirection combines stderr with stdout?",
+o:[
+"2>1",
+"2>&1",
+"1>&2",
+">&0"
+],
+a:1,
+e:"2>&1 redirects file descriptor 2, stderr, to the destination currently used by file descriptor 1, stdout."
+},
+
+{
+id:90, level:"Advanced",
+q:"Consider: grep 'ERROR' logfile | sort. What does the pipe do?",
+o:[
+"It sends grep's standard output to sort's standard input",
+"It sends sort's output to grep",
+"It redirects both commands to stderr",
+"It runs grep only if sort succeeds"
+],
+a:0,
+e:"The pipe connects grep's standard output to sort's standard input, allowing sort to process the matching lines."
+}
+
+];
+
+
+/* =========================================================
+   BUILD QUIZ
+   ========================================================= */
+
+const questionsContainer = document.getElementById("questions");
+
+questions.forEach((item, index) => {
+
+    if (index === 0 ||
+        questions[index - 1].level !== item.level) {
+
+        const section = document.createElement("h2");
+        section.className = "section-title";
+
+        if (item.level === "Basic") {
+            section.textContent = "Section 1 — Basic Linux Shell Scripting (Questions 1–30)";
+        } else if (item.level === "Intermediate") {
+            section.textContent = "Section 2 — Medium / Intermediate (Questions 31–60)";
+        } else {
+            section.textContent = "Section 3 — Advanced Concepts (Questions 61–90)";
+        }
+
+        questionsContainer.appendChild(section);
+    }
+
+    const div = document.createElement("div");
+    div.className = "question";
+
+    let optionsHTML = "";
+
+    item.o.forEach((option, optionIndex) => {
+
+        const letter = String.fromCharCode(65 + optionIndex);
+
+        optionsHTML += `
+        <label class="option">
+            <input type="radio"
+                   name="q${item.id}"
+                   value="${optionIndex}">
+            <b>${letter}.</b> ${option}
+        </label>
+        `;
+    });
+
+    div.innerHTML = `
+        <span class="level">${item.level}</span>
+        <h3>${item.id}. ${item.q}</h3>
+        ${optionsHTML}
+    `;
+
+    questionsContainer.appendChild(div);
+});
+
+
+/* =========================================================
+   SUBMIT QUIZ
+   ========================================================= */
+
+function submitQuiz() {
+
+    let correct = 0;
+    let wrong = 0;
+    let unanswered = 0;
+
+    const review = document.getElementById("review");
+
+    review.innerHTML = "";
+
+    questions.forEach(item => {
+
+        const selected =
+            document.querySelector(
+                `input[name="q${item.id}"]:checked`
+            );
+
+        const reviewItem = document.createElement("div");
+
+        if (!selected) {
+
+            unanswered++;
+
+            reviewItem.className =
+                "review-item review-unanswered";
+
+            reviewItem.innerHTML = `
+                <strong>Question ${item.id}</strong>
+                <p>${item.q}</p>
+                <p>Your answer: <b>Not answered</b></p>
+                <p>Correct answer:
+                   <b>${String.fromCharCode(65 + item.a)}.
+                   ${item.o[item.a]}</b>
+                </p>
+                <div class="explanation">
+                    ${item.e}
+                </div>
+            `;
+
+        } else {
+
+            const selectedAnswer =
+                parseInt(selected.value);
+
+            if (selectedAnswer === item.a) {
+
+                correct++;
+
+                reviewItem.className =
+                    "review-item review-correct";
+
+                reviewItem.innerHTML = `
+                    <strong>Question ${item.id}</strong>
+                    <p>${item.q}</p>
+                    <p>Your answer:
+                       <b>${String.fromCharCode(65 + selectedAnswer)}.
+                       ${item.o[selectedAnswer]}</b>
+                    </p>
+                    <p>Result: <b class="green">Correct</b></p>
+                    <div class="explanation">
+                        ${item.e}
+                    </div>
+                `;
+
+            } else {
+
+                wrong++;
+
+                reviewItem.className =
+                    "review-item review-wrong";
+
+                reviewItem.innerHTML = `
+                    <strong>Question ${item.id}</strong>
+                    <p>${item.q}</p>
+                    <p>Your answer:
+                       <b>${String.fromCharCode(65 + selectedAnswer)}.
+                       ${item.o[selectedAnswer]}</b>
+                    </p>
+                    <p>Correct answer:
+                       <b>${String.fromCharCode(65 + item.a)}.
+                       ${item.o[item.a]}</b>
+                    </p>
+                    <p>Result: <b class="red">Wrong</b></p>
+                    <div class="explanation">
+                        ${item.e}
+                    </div>
+                `;
+            }
+        }
+
+        review.appendChild(reviewItem);
+    });
+
+
+    /* =====================================================
+       SCORE
+       ===================================================== */
+
+    const percentage =
+        (correct / questions.length) * 100;
+
+    let grade;
+    let message;
+
+    if (correct >= 81) {
+
+        grade = "A+";
+        message =
+            "Excellent! You demonstrate a very strong understanding of Linux Shell Scripting.";
+
+    } else if (correct >= 72) {
+
+        grade = "A";
+        message =
+            "Very strong performance. Your Linux shell scripting knowledge is well developed.";
+
+    } else if (correct >= 63) {
+
+        grade = "B+";
+        message =
+            "Good performance. Review the questions you missed, especially advanced topics.";
+
+    } else if (correct >= 54) {
+
+        grade = "B";
+        message =
+            "Good foundation. More practice with intermediate and advanced Bash concepts will help.";
+
+    } else if (correct >= 45) {
+
+        grade = "C";
+        message =
+            "Basic understanding is present. Strengthen scripting, text processing and process management.";
+
+    } else if (correct >= 36) {
+
+        grade = "D";
+        message =
+            "Some fundamentals are understood, but substantial additional practice is recommended.";
+
+    } else {
+
+        grade = "F";
+        message =
+            "Review Linux shell fundamentals and practice basic commands before retaking the test.";
+    }
+
+
+    document.getElementById("correctCount").textContent =
+        correct;
+
+    document.getElementById("wrongCount").textContent =
+        wrong;
+
+    document.getElementById("unansweredCount").textContent =
+        unanswered;
+
+    document.getElementById("percentage").textContent =
+        percentage.toFixed(2) + "%";
+
+    document.getElementById("grade").textContent =
+        grade;
+
+    document.getElementById("gradeMessage").textContent =
+        message;
+
+    document.getElementById("result").style.display =
+        "block";
+
+    window.scrollTo({
+        top: document.getElementById("result").offsetTop - 20,
+        behavior: "smooth"
+    });
+}
+
+</script>
+
+</body>
+</html>
+```
+
