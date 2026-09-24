@@ -1,0 +1,803 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Linux Shell Scripting - 40 Question Self Test</title>
+
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        background: linear-gradient(135deg, #0f172a, #1e293b);
+        color: #e2e8f0;
+        line-height: 1.5;
+    }
+
+    .container {
+        max-width: 1000px;
+        margin: 30px auto;
+        padding: 20px;
+    }
+
+    .header {
+        background: #111827;
+        border-radius: 15px;
+        padding: 30px;
+        text-align: center;
+        margin-bottom: 25px;
+        border: 1px solid #334155;
+    }
+
+    .header h1 {
+        margin: 0 0 10px;
+        color: #38bdf8;
+    }
+
+    .header p {
+        margin: 5px 0;
+        color: #cbd5e1;
+    }
+
+    .question {
+        background: #111827;
+        border: 1px solid #334155;
+        border-radius: 12px;
+        padding: 22px;
+        margin-bottom: 18px;
+    }
+
+    .question h3 {
+        margin-top: 0;
+        color: #f8fafc;
+    }
+
+    .code {
+        background: #020617;
+        color: #a5f3fc;
+        padding: 12px 15px;
+        border-radius: 8px;
+        font-family: Consolas, monospace;
+        white-space: pre-wrap;
+        margin: 12px 0;
+        border-left: 4px solid #38bdf8;
+    }
+
+    label {
+        display: block;
+        background: #1e293b;
+        border: 1px solid #475569;
+        border-radius: 8px;
+        padding: 11px 14px;
+        margin: 8px 0;
+        cursor: pointer;
+        transition: 0.2s;
+    }
+
+    label:hover {
+        background: #334155;
+        border-color: #38bdf8;
+    }
+
+    input[type="radio"] {
+        margin-right: 10px;
+    }
+
+    button {
+        display: block;
+        width: 100%;
+        padding: 16px;
+        font-size: 18px;
+        font-weight: bold;
+        color: white;
+        background: #0284c7;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        margin: 25px 0;
+    }
+
+    button:hover {
+        background: #0369a1;
+    }
+
+    #result {
+        display: none;
+        background: #0f172a;
+        border: 2px solid #38bdf8;
+        border-radius: 15px;
+        padding: 30px;
+        text-align: center;
+        margin-top: 30px;
+    }
+
+    #result h2 {
+        color: #38bdf8;
+    }
+
+    .score {
+        font-size: 42px;
+        font-weight: bold;
+        margin: 10px;
+    }
+
+    .grade {
+        font-size: 28px;
+        font-weight: bold;
+        color: #facc15;
+    }
+
+    .summary {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+        margin-top: 20px;
+    }
+
+    .summary div {
+        background: #1e293b;
+        padding: 15px;
+        border-radius: 8px;
+    }
+
+    .correct {
+        color: #4ade80;
+    }
+
+    .wrong {
+        color: #f87171;
+    }
+
+    .unanswered {
+        color: #fbbf24;
+    }
+
+    .review {
+        text-align: left;
+        margin-top: 25px;
+    }
+
+    .review-item {
+        background: #1e293b;
+        border-radius: 8px;
+        padding: 15px;
+        margin: 10px 0;
+    }
+
+    .answer {
+        color: #4ade80;
+        font-weight: bold;
+    }
+
+    @media (max-width: 700px) {
+        .container {
+            margin: 10px;
+            padding: 10px;
+        }
+
+        .summary {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="header">
+        <h1>Linux Shell Scripting</h1>
+        <p>40-Question Self Test</p>
+        <p>Difficulty: Medium | Bash / Linux Shell</p>
+        <p>Select one answer for each question and submit at the end.</p>
+    </div>
+
+    <form id="quizForm">
+
+        <!-- Q1 -->
+        <div class="question">
+            <h3>1. Which command is commonly used to display the current working directory?</h3>
+            <label><input type="radio" name="q1" value="A"> A. cd</label>
+            <label><input type="radio" name="q1" value="B"> B. pwd</label>
+            <label><input type="radio" name="q1" value="C"> C. dir</label>
+            <label><input type="radio" name="q1" value="D"> D. where</label>
+        </div>
+
+        <!-- Q2 -->
+        <div class="question">
+            <h3>2. Which symbol is used to access the value of a shell variable?</h3>
+            <label><input type="radio" name="q2" value="A"> A. #</label>
+            <label><input type="radio" name="q2" value="B"> B. @</label>
+            <label><input type="radio" name="q2" value="C"> C. $</label>
+            <label><input type="radio" name="q2" value="D"> D. &amp;</label>
+        </div>
+
+        <!-- Q3 -->
+        <div class="question">
+            <h3>3. Which is the correct way to assign the value "Linux" to a variable named OS?</h3>
+            <label><input type="radio" name="q3" value="A"> A. OS = "Linux"</label>
+            <label><input type="radio" name="q3" value="B"> B. OS="Linux"</label>
+            <label><input type="radio" name="q3" value="C"> C. $OS="Linux"</label>
+            <label><input type="radio" name="q3" value="D"> D. set OS "Linux"</label>
+        </div>
+
+        <!-- Q4 -->
+        <div class="question">
+            <h3>4. What does the shebang line generally specify?</h3>
+            <label><input type="radio" name="q4" value="A"> A. The script's author</label>
+            <label><input type="radio" name="q4" value="B"> B. The shell/interpreter used to execute the script</label>
+            <label><input type="radio" name="q4" value="C"> C. The script's permissions</label>
+            <label><input type="radio" name="q4" value="D"> D. The script's filename</label>
+        </div>
+
+        <!-- Q5 -->
+        <div class="question">
+            <h3>5. Which line is a typical Bash shebang?</h3>
+            <label><input type="radio" name="q5" value="A"> A. #bash/bin</label>
+            <label><input type="radio" name="q5" value="B"> B. #!/bin/bash</label>
+            <label><input type="radio" name="q5" value="C"> C. /bin/bash#!</label>
+            <label><input type="radio" name="q5" value="D"> D. ##bash##</label>
+        </div>
+
+        <!-- Q6 -->
+        <div class="question">
+            <h3>6. Which command makes a script executable for the file owner?</h3>
+            <label><input type="radio" name="q6" value="A"> A. chmod u+x script.sh</label>
+            <label><input type="radio" name="q6" value="B"> B. chmod u-r script.sh</label>
+            <label><input type="radio" name="q6" value="C"> C. exec +x script.sh</label>
+            <label><input type="radio" name="q6" value="D"> D. run +x script.sh</label>
+        </div>
+
+        <!-- Q7 -->
+        <div class="question">
+            <h3>7. What does $1 represent inside a shell script?</h3>
+            <label><input type="radio" name="q7" value="A"> A. Script name</label>
+            <label><input type="radio" name="q7" value="B"> B. First positional argument</label>
+            <label><input type="radio" name="q7" value="C"> C. Exit status</label>
+            <label><input type="radio" name="q7" value="D"> D. Number of arguments</label>
+        </div>
+
+        <!-- Q8 -->
+        <div class="question">
+            <h3>8. Which special variable contains the number of positional arguments?</h3>
+            <label><input type="radio" name="q8" value="A"> A. $0</label>
+            <label><input type="radio" name="q8" value="B"> B. $#</label>
+            <label><input type="radio" name="q8" value="C"> C. $?</label>
+            <label><input type="radio" name="q8" value="D"> D. $$</label>
+        </div>
+
+        <!-- Q9 -->
+        <div class="question">
+            <h3>9. What does $0 normally contain in a shell script?</h3>
+            <label><input type="radio" name="q9" value="A"> A. Number of arguments</label>
+            <label><input type="radio" name="q9" value="B"> B. Previous command status</label>
+            <label><input type="radio" name="q9" value="C"> C. Script or shell name</label>
+            <label><input type="radio" name="q9" value="D"> D. First argument</label>
+        </div>
+
+        <!-- Q10 -->
+        <div class="question">
+            <h3>10. Which variable contains the exit status of the most recently executed command?</h3>
+            <label><input type="radio" name="q10" value="A"> A. $$</label>
+            <label><input type="radio" name="q10" value="B"> B. $!</label>
+            <label><input type="radio" name="q10" value="C"> C. $?</label>
+            <label><input type="radio" name="q10" value="D"> D. $@</label>
+        </div>
+
+        <!-- Q11 -->
+        <div class="question">
+            <h3>11. Which command reads input from the user into a variable?</h3>
+            <label><input type="radio" name="q11" value="A"> A. input</label>
+            <label><input type="radio" name="q11" value="B"> B. scan</label>
+            <label><input type="radio" name="q11" value="C"> C. read</label>
+            <label><input type="radio" name="q11" value="D"> D. get</label>
+        </div>
+
+        <!-- Q12 -->
+        <div class="question">
+            <h3>12. What is the main purpose of double quotes around "$name"?</h3>
+            <label><input type="radio" name="q12" value="A"> A. Disable variable expansion</label>
+            <label><input type="radio" name="q12" value="B"> B. Preserve spaces and prevent unwanted word splitting</label>
+            <label><input type="radio" name="q12" value="C"> C. Convert the value to an integer</label>
+            <label><input type="radio" name="q12" value="D"> D. Execute the variable as a command</label>
+        </div>
+
+        <!-- Q13 -->
+        <div class="question">
+            <h3>13. Which statement is commonly used for conditional execution in Bash?</h3>
+            <label><input type="radio" name="q13" value="A"> A. if</label>
+            <label><input type="radio" name="q13" value="B"> B. check</label>
+            <label><input type="radio" name="q13" value="C"> C. condition</label>
+            <label><input type="radio" name="q13" value="D"> D. decide</label>
+        </div>
+
+        <!-- Q14 -->
+        <div class="question">
+            <h3>14. Which operator tests integer equality inside [ ... ]?</h3>
+            <label><input type="radio" name="q14" value="A"> A. =</label>
+            <label><input type="radio" name="q14" value="B"> B. ==</label>
+            <label><input type="radio" name="q14" value="C"> C. -eq</label>
+            <label><input type="radio" name="q14" value="D"> D. -same</label>
+        </div>
+
+        <!-- Q15 -->
+        <div class="question">
+            <h3>15. Which operator tests whether two integers are not equal?</h3>
+            <label><input type="radio" name="q15" value="A"> A. -ne</label>
+            <label><input type="radio" name="q15" value="B"> B. !=</label>
+            <label><input type="radio" name="q15" value="C"> C. -not</label>
+            <label><input type="radio" name="q15" value="D"> D. &lt;&gt;</label>
+        </div>
+
+        <!-- Q16 -->
+        <div class="question">
+            <h3>16. Which test checks whether a file exists?</h3>
+            <label><input type="radio" name="q16" value="A"> A. [ -e file.txt ]</label>
+            <label><input type="radio" name="q16" value="B"> B. [ -folder file.txt ]</label>
+            <label><input type="radio" name="q16" value="C"> C. [ -xist file.txt ]</label>
+            <label><input type="radio" name="q16" value="D"> D. [ -exists file.txt ]</label>
+        </div>
+
+        <!-- Q17 -->
+        <div class="question">
+            <h3>17. Which test specifically checks whether a path is a regular file?</h3>
+            <label><input type="radio" name="q17" value="A"> A. [ -d file ]</label>
+            <label><input type="radio" name="q17" value="B"> B. [ -f file ]</label>
+            <label><input type="radio" name="q17" value="C"> C. [ -r file ]</label>
+            <label><input type="radio" name="q17" value="D"> D. [ -p file ]</label>
+        </div>
+
+        <!-- Q18 -->
+        <div class="question">
+            <h3>18. Which loop is commonly used to iterate over a list of items?</h3>
+            <label><input type="radio" name="q18" value="A"> A. repeat</label>
+            <label><input type="radio" name="q18" value="B"> B. foreach</label>
+            <label><input type="radio" name="q18" value="C"> C. for</label>
+            <label><input type="radio" name="q18" value="D"> D. iterate</label>
+        </div>
+
+        <!-- Q19 -->
+        <div class="question">
+            <h3>19. What does the following Bash loop do?</h3>
+            <div class="code">for file in *.txt; do
+    echo "$file"
+done</div>
+            <label><input type="radio" name="q19" value="A"> A. Deletes all TXT files</label>
+            <label><input type="radio" name="q19" value="B"> B. Prints matching TXT filenames</label>
+            <label><input type="radio" name="q19" value="C"> C. Creates TXT files</label>
+            <label><input type="radio" name="q19" value="D"> D. Compresses TXT files</label>
+        </div>
+
+        <!-- Q20 -->
+        <div class="question">
+            <h3>20. Which command can be used to terminate a loop immediately?</h3>
+            <label><input type="radio" name="q20" value="A"> A. stop</label>
+            <label><input type="radio" name="q20" value="B"> B. exitloop</label>
+            <label><input type="radio" name="q20" value="C"> C. break</label>
+            <label><input type="radio" name="q20" value="D"> D. terminate</label>
+        </div>
+
+        <!-- Q21 -->
+        <div class="question">
+            <h3>21. Which command skips the remaining commands in the current loop iteration?</h3>
+            <label><input type="radio" name="q21" value="A"> A. skip</label>
+            <label><input type="radio" name="q21" value="B"> B. continue</label>
+            <label><input type="radio" name="q21" value="C"> C. next</label>
+            <label><input type="radio" name="q21" value="D"> D. pass</label>
+        </div>
+
+        <!-- Q22 -->
+        <div class="question">
+            <h3>22. Which construct is commonly used for multiple-choice branching in Bash?</h3>
+            <label><input type="radio" name="q22" value="A"> A. switch</label>
+            <label><input type="radio" name="q22" value="B"> B. case</label>
+            <label><input type="radio" name="q22" value="C"> C. selectcase</label>
+            <label><input type="radio" name="q22" value="D"> D. branch</label>
+        </div>
+
+        <!-- Q23 -->
+        <div class="question">
+            <h3>23. Which command sends standard output to a file, replacing the existing contents?</h3>
+            <label><input type="radio" name="q23" value="A"> A. &gt;&gt;</label>
+            <label><input type="radio" name="q23" value="B"> B. &lt;</label>
+            <label><input type="radio" name="q23" value="C"> C. &gt;</label>
+            <label><input type="radio" name="q23" value="D"> D. |</label>
+        </div>
+
+        <!-- Q24 -->
+        <div class="question">
+            <h3>24. What does &gt;&gt; generally do?</h3>
+            <label><input type="radio" name="q24" value="A"> A. Appends standard output to a file</label>
+            <label><input type="radio" name="q24" value="B"> B. Reads input from a file</label>
+            <label><input type="radio" name="q24" value="C"> C. Pipes output to another command</label>
+            <label><input type="radio" name="q24" value="D"> D. Deletes the file</label>
+        </div>
+
+        <!-- Q25 -->
+        <div class="question">
+            <h3>25. What does the pipe symbol | do?</h3>
+            <label><input type="radio" name="q25" value="A"> A. Runs two commands in parallel without data flow</label>
+            <label><input type="radio" name="q25" value="B"> B. Sends standard output of one command to standard input of another</label>
+            <label><input type="radio" name="q25" value="C"> C. Redirects errors to a file</label>
+            <label><input type="radio" name="q25" value="D"> D. Terminates a command</label>
+        </div>
+
+        <!-- Q26 -->
+        <div class="question">
+            <h3>26. What does this command do?</h3>
+            <div class="code">grep "error" logfile.txt</div>
+            <label><input type="radio" name="q26" value="A"> A. Deletes lines containing error</label>
+            <label><input type="radio" name="q26" value="B"> B. Displays lines matching error</label>
+            <label><input type="radio" name="q26" value="C"> C. Replaces error with another word</label>
+            <label><input type="radio" name="q26" value="D"> D. Creates a file called error</label>
+        </div>
+
+        <!-- Q27 -->
+        <div class="question">
+            <h3>27. Which command is useful for counting lines, words, and bytes?</h3>
+            <label><input type="radio" name="q27" value="A"> A. count</label>
+            <label><input type="radio" name="q27" value="B"> B. wc</label>
+            <label><input type="radio" name="q27" value="C"> C. measure</label>
+            <label><input type="radio" name="q27" value="D"> D. statcount</label>
+        </div>
+
+        <!-- Q28 -->
+        <div class="question">
+            <h3>28. Which command is commonly used to search for files by name and other attributes?</h3>
+            <label><input type="radio" name="q28" value="A"> A. locatefile</label>
+            <label><input type="radio" name="q28" value="B"> B. search</label>
+            <label><input type="radio" name="q28" value="C"> C. find</label>
+            <label><input type="radio" name="q28" value="D"> D. seek</label>
+        </div>
+
+        <!-- Q29 -->
+        <div class="question">
+            <h3>29. What is the purpose of a shell function?</h3>
+            <label><input type="radio" name="q29" value="A"> A. Store reusable commands or logic</label>
+            <label><input type="radio" name="q29" value="B"> B. Change the kernel</label>
+            <label><input type="radio" name="q29" value="C"> C. Replace the filesystem</label>
+            <label><input type="radio" name="q29" value="D"> D. Automatically compile Bash</label>
+        </div>
+
+        <!-- Q30 -->
+        <div class="question">
+            <h3>30. Which is a valid Bash function definition?</h3>
+            <label><input type="radio" name="q30" value="A"> A. function hello { echo "Hi"; }</label>
+            <label><input type="radio" name="q30" value="B"> B. def hello(): echo "Hi"</label>
+            <label><input type="radio" name="q30" value="C"> C. func: hello =&gt; echo "Hi"</label>
+            <label><input type="radio" name="q30" value="D"> D. define hello = echo "Hi"</label>
+        </div>
+
+        <!-- Q31 -->
+        <div class="question">
+            <h3>31. Which command can terminate a script and return a status code?</h3>
+            <label><input type="radio" name="q31" value="A"> A. stop</label>
+            <label><input type="radio" name="q31" value="B"> B. return-script</label>
+            <label><input type="radio" name="q31" value="C"> C. exit</label>
+            <label><input type="radio" name="q31" value="D"> D. quit-script</label>
+        </div>
+
+        <!-- Q32 -->
+        <div class="question">
+            <h3>32. What does exit 0 normally indicate?</h3>
+            <label><input type="radio" name="q32" value="A"> A. Successful completion</label>
+            <label><input type="radio" name="q32" value="B"> B. Syntax error</label>
+            <label><input type="radio" name="q32" value="C"> C. Permission denied</label>
+            <label><input type="radio" name="q32" value="D"> D. Process killed</label>
+        </div>
+
+        <!-- Q33 -->
+        <div class="question">
+            <h3>33. What does the command below generally do?</h3>
+            <div class="code">command1 &amp;&amp; command2</div>
+            <label><input type="radio" name="q33" value="A"> A. Runs command2 only if command1 succeeds</label>
+            <label><input type="radio" name="q33" value="B"> B. Runs command2 only if command1 fails</label>
+            <label><input type="radio" name="q33" value="C"> C. Always runs both commands simultaneously</label>
+            <label><input type="radio" name="q33" value="D"> D. Sends command1 output to command2</label>
+        </div>
+
+        <!-- Q34 -->
+        <div class="question">
+            <h3>34. What does || generally mean in shell command execution?</h3>
+            <label><input type="radio" name="q34" value="A"> A. Run the second command if the first fails</label>
+            <label><input type="radio" name="q34" value="B"> B. Always run the second command first</label>
+            <label><input type="radio" name="q34" value="C"> C. Pipe standard output</label>
+            <label><input type="radio" name="q34" value="D"> D. Run commands as root</label>
+        </div>
+
+        <!-- Q35 -->
+        <div class="question">
+            <h3>35. Which command is useful for debugging a Bash script by displaying commands as they execute?</h3>
+            <label><input type="radio" name="q35" value="A"> A. bash -x script.sh</label>
+            <label><input type="radio" name="q35" value="B"> B. bash -d script.sh</label>
+            <label><input type="radio" name="q35" value="C"> C. bash --debug-only script.sh</label>
+            <label><input type="radio" name="q35" value="D"> D. bash -trace script.sh</label>
+        </div>
+
+        <!-- Q36 -->
+        <div class="question">
+            <h3>36. What does the following command substitution do?</h3>
+            <div class="code">today=$(date)</div>
+            <label><input type="radio" name="q36" value="A"> A. Executes the value stored in today as a command</label>
+            <label><input type="radio" name="q36" value="B"> B. Stores the output of date in today</label>
+            <label><input type="radio" name="q36" value="C"> C. Deletes the date command</label>
+            <label><input type="radio" name="q36" value="D"> D. Creates a command named today</label>
+        </div>
+
+        <!-- Q37 -->
+        <div class="question">
+            <h3>37. Which command can replace repeated text in a stream using patterns?</h3>
+            <label><input type="radio" name="q37" value="A"> A. sed</label>
+            <label><input type="radio" name="q37" value="B"> B. ps</label>
+            <label><input type="radio" name="q37" value="C"> C. chmod</label>
+            <label><input type="radio" name="q37" value="D"> D. uname</label>
+        </div>
+
+        <!-- Q38 -->
+        <div class="question">
+            <h3>38. Which command is especially useful for column-based text processing?</h3>
+            <label><input type="radio" name="q38" value="A"> A. awk</label>
+            <label><input type="radio" name="q38" value="B"> B. kill</label>
+            <label><input type="radio" name="q38" value="C"> C. mount</label>
+            <label><input type="radio" name="q38" value="D"> D. passwd</label>
+        </div>
+
+        <!-- Q39 -->
+        <div class="question">
+            <h3>39. What does the following command generally accomplish?</h3>
+            <div class="code">chmod +x backup.sh</div>
+            <label><input type="radio" name="q39" value="A"> A. Makes backup.sh executable</label>
+            <label><input type="radio" name="q39" value="B"> B. Encrypts backup.sh</label>
+            <label><input type="radio" name="q39" value="C"> C. Compresses backup.sh</label>
+            <label><input type="radio" name="q39" value="D"> D. Deletes backup.sh</label>
+        </div>
+
+        <!-- Q40 -->
+        <div class="question">
+            <h3>40. What is a major reason to quote variables in shell scripts, such as "$filename"?</h3>
+            <label><input type="radio" name="q40" value="A"> A. To force the variable to contain an integer</label>
+            <label><input type="radio" name="q40" value="B"> B. To prevent many forms of unwanted word splitting and pathname expansion</label>
+            <label><input type="radio" name="q40" value="C"> C. To make the variable global</label>
+            <label><input type="radio" name="q40" value="D"> D. To execute the variable as a shell function</label>
+        </div>
+
+        <button type="button" onclick="calculateScore()">
+            Submit Quiz &amp; Calculate Grade
+        </button>
+
+    </form>
+
+    <div id="result">
+        <h2>Quiz Result</h2>
+
+        <div class="score" id="score"></div>
+        <div class="grade" id="grade"></div>
+
+        <div class="summary">
+            <div>
+                <strong class="correct">Correct</strong>
+                <div id="correctCount">0</div>
+            </div>
+
+            <div>
+                <strong class="wrong">Wrong</strong>
+                <div id="wrongCount">0</div>
+            </div>
+
+            <div>
+                <strong class="unanswered">Unanswered</strong>
+                <div id="unansweredCount">0</div>
+            </div>
+        </div>
+
+        <div class="review">
+            <h3>Answer Review</h3>
+            <div id="review"></div>
+        </div>
+
+        <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+            Review Questions
+        </button>
+    </div>
+
+</div>
+
+<script>
+
+const answers = {
+    q1: "B",
+    q2: "C",
+    q3: "B",
+    q4: "B",
+    q5: "B",
+    q6: "A",
+    q7: "B",
+    q8: "B",
+    q9: "C",
+    q10: "C",
+    q11: "C",
+    q12: "B",
+    q13: "A",
+    q14: "C",
+    q15: "A",
+    q16: "A",
+    q17: "B",
+    q18: "C",
+    q19: "B",
+    q20: "C",
+    q21: "B",
+    q22: "B",
+    q23: "C",
+    q24: "A",
+    q25: "B",
+    q26: "B",
+    q27: "B",
+    q28: "C",
+    q29: "A",
+    q30: "A",
+    q31: "C",
+    q32: "A",
+    q33: "A",
+    q34: "A",
+    q35: "A",
+    q36: "B",
+    q37: "A",
+    q38: "A",
+    q39: "A",
+    q40: "B"
+};
+
+const explanations = {
+    q1: "pwd prints the present working directory.",
+    q2: "The $ symbol is used for parameter and variable expansion.",
+    q3: "Bash assignments do not allow spaces around the equals sign.",
+    q4: "The shebang identifies the interpreter used to execute a script.",
+    q5: "#!/bin/bash specifies Bash as the interpreter.",
+    q6: "chmod u+x adds execute permission for the file owner.",
+    q7: "$1 contains the first positional argument.",
+    q8: "$# contains the number of positional arguments.",
+    q9: "$0 normally contains the script name or shell name.",
+    q10: "$? contains the exit status of the most recently executed command.",
+    q11: "read obtains input from standard input and stores it in a variable.",
+    q12: "Double quotes preserve the expanded value as a single word in common cases, preventing unwanted word splitting and pathname expansion.",
+    q13: "if is the standard Bash conditional construct.",
+    q14: "-eq performs integer equality testing.",
+    q15: "-ne tests whether two integers are not equal.",
+    q16: "-e tests whether a pathname exists.",
+    q17: "-f tests whether the pathname refers to a regular file.",
+    q18: "The for loop is commonly used to iterate over a list.",
+    q19: "The glob *.txt expands to matching TXT filenames, which the loop prints.",
+    q20: "break immediately terminates the current loop.",
+    q21: "continue skips to the next iteration of the current loop.",
+    q22: "case is Bash's construct for matching one value against multiple patterns.",
+    q23: "> redirects standard output and normally truncates an existing destination file.",
+    q24: ">> appends standard output to the destination file.",
+    q25: "A pipe connects one command's standard output to another command's standard input.",
+    q26: "grep displays lines that match the specified pattern.",
+    q27: "wc reports counts such as lines, words, and bytes.",
+    q28: "find searches directory trees using conditions such as name, type, size, and permissions.",
+    q29: "Functions package reusable shell commands and logic.",
+    q30: "function hello { ... } is a valid Bash function syntax.",
+    q31: "exit terminates the current shell script and can return a status code.",
+    q32: "Exit status 0 conventionally represents successful completion.",
+    q33: "With &&, the second command runs when the first command succeeds.",
+    q34: "With ||, the second command runs when the first command fails.",
+    q35: "bash -x traces commands as Bash executes them.",
+    q36: "$(date) performs command substitution and stores date's output in today.",
+    q37: "sed is a stream editor commonly used for substitutions and other text transformations.",
+    q38: "awk is designed for structured, field- and column-oriented text processing.",
+    q39: "chmod +x adds execute permission.",
+    q40: "Quoting variables prevents unwanted word splitting and pathname expansion in many common shell contexts."
+};
+
+function calculateScore() {
+
+    let correct = 0;
+    let wrong = 0;
+    let unanswered = 0;
+
+    let reviewHTML = "";
+
+    for (let i = 1; i <= 40; i++) {
+
+        const questionName = "q" + i;
+        const selected = document.querySelector(
+            `input[name="${questionName}"]:checked`
+        );
+
+        if (!selected) {
+            unanswered++;
+
+            reviewHTML += `
+                <div class="review-item">
+                    <strong>Question ${i}</strong>
+                    <p class="unanswered">Not answered</p>
+                    <p class="answer">
+                        Correct answer: ${answers[questionName]}
+                    </p>
+                    <p>${explanations[questionName]}</p>
+                </div>
+            `;
+
+        } else if (selected.value === answers[questionName]) {
+
+            correct++;
+
+            reviewHTML += `
+                <div class="review-item">
+                    <strong>Question ${i}</strong>
+                    <p class="correct">
+                        Your answer: ${selected.value} — Correct
+                    </p>
+                    <p>${explanations[questionName]}</p>
+                </div>
+            `;
+
+        } else {
+
+            wrong++;
+
+            reviewHTML += `
+                <div class="review-item">
+                    <strong>Question ${i}</strong>
+                    <p class="wrong">
+                        Your answer: ${selected.value} — Wrong
+                    </p>
+                    <p class="answer">
+                        Correct answer: ${answers[questionName]}
+                    </p>
+                    <p>${explanations[questionName]}</p>
+                </div>
+            `;
+        }
+    }
+
+    const percentage = (correct / 40) * 100;
+
+    let grade = "";
+
+    if (percentage >= 90) {
+        grade = "A+ — Excellent";
+    } else if (percentage >= 80) {
+        grade = "A — Very Good";
+    } else if (percentage >= 70) {
+        grade = "B — Good";
+    } else if (percentage >= 60) {
+        grade = "C — Satisfactory";
+    } else if (percentage >= 50) {
+        grade = "D — Needs Improvement";
+    } else {
+        grade = "F — Further Practice Required";
+    }
+
+    document.getElementById("score").textContent =
+        `${correct} / 40 (${percentage.toFixed(1)}%)`;
+
+    document.getElementById("grade").textContent = grade;
+
+    document.getElementById("correctCount").textContent = correct;
+    document.getElementById("wrongCount").textContent = wrong;
+    document.getElementById("unansweredCount").textContent = unanswered;
+
+    document.getElementById("review").innerHTML = reviewHTML;
+
+    document.getElementById("result").style.display = "block";
+
+    window.scrollTo({
+        top: document.getElementById("result").offsetTop - 20,
+        behavior: "smooth"
+    });
+}
+
+</script>
+
+</body>
+</html>
+```
+
