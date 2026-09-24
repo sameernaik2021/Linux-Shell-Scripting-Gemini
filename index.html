@@ -1,0 +1,1810 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Linux Shell Scripting Self-Test (90 Questions)</title>
+  <style>
+    :root {
+      --bg-color: #0f172a;
+      --card-bg: #1e293b;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent: #38bdf8;
+      --accent-hover: #0284c7;
+      --success: #22c55e;
+      --error: #ef4444;
+      --warning: #f59e0b;
+      --border-color: #334155;
+      --code-bg: #090d16;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 900px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    header {
+      background: var(--card-bg);
+      padding: 24px;
+      border-radius: 12px;
+      border: 1px solid var(--border-color);
+      text-align: center;
+    }
+
+    header h1 {
+      color: var(--accent);
+      margin-bottom: 8px;
+      font-size: 1.8rem;
+    }
+
+    header p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    .nav-tabs {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      margin-top: 15px;
+      flex-wrap: wrap;
+    }
+
+    .tab-btn {
+      background: #0f172a;
+      color: var(--text-muted);
+      border: 1px solid var(--border-color);
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+
+    .tab-btn.active, .tab-btn:hover {
+      background: var(--accent);
+      color: #000;
+      border-color: var(--accent);
+    }
+
+    .card {
+      background: var(--card-bg);
+      padding: 24px;
+      border-radius: 12px;
+      border: 1px solid var(--border-color);
+    }
+
+    .progress-bar-container {
+      width: 100%;
+      background: #0f172a;
+      height: 10px;
+      border-radius: 5px;
+      overflow: hidden;
+      margin-bottom: 20px;
+      border: 1px solid var(--border-color);
+    }
+
+    .progress-bar {
+      height: 100%;
+      background: var(--accent);
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    .q-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .q-badge {
+      font-size: 0.8rem;
+      padding: 4px 10px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      font-weight: bold;
+    }
+
+    .badge-basic { background: #065f46; color: #a7f3d0; }
+    .badge-medium { background: #854d0e; color: #fef08a; }
+    .badge-advanced { background: #991b1b; color: #fecaca; }
+
+    .q-text {
+      font-size: 1.15rem;
+      line-height: 1.5;
+      margin-bottom: 15px;
+    }
+
+    code {
+      background: var(--code-bg);
+      color: #38bdf8;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 0.95em;
+    }
+
+    .options-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .option-item {
+      background: #0f172a;
+      border: 1px solid var(--border-color);
+      padding: 12px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: border-color 0.2s, background-color 0.2s;
+    }
+
+    .option-item:hover {
+      border-color: var(--accent);
+    }
+
+    .option-item input {
+      accent-color: var(--accent);
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+    }
+
+    .option-item.correct {
+      background: #064e3b !important;
+      border-color: var(--success) !important;
+    }
+
+    .option-item.incorrect {
+      background: #7f1d1d !important;
+      border-color: var(--error) !important;
+    }
+
+    .btn {
+      background: var(--accent);
+      color: #0f172a;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background 0.2s;
+    }
+
+    .btn:hover {
+      background: var(--accent-hover);
+      color: #fff;
+    }
+
+    .btn-secondary {
+      background: transparent;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+    }
+
+    .btn-secondary:hover {
+      background: var(--accent);
+      color: #0f172a;
+    }
+
+    .controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .hint-box, .feedback-box {
+      margin-top: 15px;
+      padding: 12px;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      line-height: 1.4;
+    }
+
+    .hint-box {
+      background: #1e1b4b;
+      border: 1px solid #4338ca;
+      color: #c7d2fe;
+    }
+
+    .feedback-box {
+      border: 1px solid var(--border-color);
+    }
+
+    .feedback-box.correct {
+      background: #022c22;
+      border-color: var(--success);
+      color: #6ee7b7;
+    }
+
+    .feedback-box.incorrect {
+      background: #450a0a;
+      border-color: var(--error);
+      color: #fca5a5;
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      margin: 20px 0;
+    }
+
+    .metric-card {
+      background: #0f172a;
+      padding: 16px;
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+      text-align: center;
+    }
+
+    .metric-card .val {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: var(--accent);
+      margin-top: 5px;
+    }
+
+    .breakdown-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+    }
+
+    .breakdown-table th, .breakdown-table td {
+      border: 1px solid var(--border-color);
+      padding: 10px;
+      text-align: left;
+    }
+
+    .breakdown-table th {
+      background: #0f172a;
+      color: var(--accent);
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .filter-bar {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 15px;
+      flex-wrap: wrap;
+    }
+
+    .review-item {
+      border: 1px solid var(--border-color);
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      background: #0f172a;
+    }
+
+    .review-item.pass { border-left: 4px solid var(--success); }
+    .review-item.fail { border-left: 4px solid var(--error); }
+
+    .history-list {
+      list-style: none;
+    }
+
+    .history-list li {
+      padding: 10px;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+    }
+
+    @media (max-width: 600px) {
+      .controls {
+        flex-direction: column;
+        gap: 10px;
+      }
+      .btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <h1>Linux Shell Scripting Self-Test</h1>
+    <p>Comprehensive 90-Question Assessment (Basic, Medium, Advanced)</p>
+    <div class="nav-tabs" role="tablist">
+      <button class="tab-btn active" id="tab-quiz" role="tab" aria-selected="true" onclick="switchTab('quiz')">Take Quiz</button>
+      <button class="tab-btn" id="tab-review" role="tab" aria-selected="false" onclick="switchTab('review')">Review Answers</button>
+      <button class="tab-btn" id="tab-stats" role="tab" aria-selected="false" onclick="switchTab('stats')">Progress & Stats</button>
+    </div>
+  </header>
+
+  <!-- QUIZ TAB -->
+  <main id="view-quiz" class="card">
+    <div class="progress-bar-container" aria-label="Quiz progress">
+      <div class="progress-bar" id="progress-bar"></div>
+    </div>
+
+    <div class="q-header">
+      <span id="question-number" style="font-weight: bold; color: var(--text-muted);">Question 1 of 90</span>
+      <span id="difficulty-badge" class="q-badge badge-basic">Basic</span>
+    </div>
+
+    <div class="q-text" id="question-text" tabIndex="0">Loading question...</div>
+
+    <div class="options-list" id="options-container"></div>
+
+    <div id="hint-container" class="hint-box hidden" aria-live="polite"></div>
+    <div id="feedback-container" class="feedback-box hidden" aria-live="polite"></div>
+
+    <div class="controls" style="margin-top: 20px;">
+      <button class="btn btn-secondary" id="btn-hint" onclick="toggleHint()">💡 Show Hint</button>
+      <div style="display: flex; gap: 10px;">
+        <button class="btn" id="btn-submit" onclick="submitAnswer()">Submit Answer</button>
+        <button class="btn hidden" id="btn-next" onclick="nextQuestion()">Next Question ➔</button>
+      </div>
+    </div>
+  </main>
+
+  <!-- REVIEW TAB -->
+  <section id="view-review" class="card hidden">
+    <h2 style="margin-bottom: 15px; color: var(--accent);">Answer Review</h2>
+    <div class="filter-bar">
+      <button class="tab-btn active" onclick="filterReview('all', this)">All</button>
+      <button class="tab-btn" onclick="filterReview('incorrect', this)">Incorrect Only</button>
+      <button class="tab-btn" onclick="filterReview('basic', this)">Basic</button>
+      <button class="tab-btn" onclick="filterReview('medium', this)">Medium</button>
+      <button class="tab-btn" onclick="filterReview('advanced', this)">Advanced</button>
+    </div>
+    <div id="review-container">Submit or answer questions to review them here.</div>
+  </section>
+
+  <!-- STATS / RESULTS TAB -->
+  <section id="view-stats" class="card hidden">
+    <h2 style="margin-bottom: 15px; color: var(--accent);">Performance Summary & Breakdown</h2>
+    
+    <div id="quiz-summary-content">
+      <p style="color: var(--text-muted);">Answer questions to see your performance summary and grade.</p>
+    </div>
+
+    <h3 style="margin-top: 30px; margin-bottom: 15px; color: var(--accent);">Attempt History Tracking</h3>
+    <ul class="history-list" id="history-container">
+      <li><span>No attempts recorded yet.</span></li>
+    </ul>
+    <button class="btn btn-secondary" style="margin-top: 15px;" onclick="clearHistory()">Clear History</button>
+  </section>
+</div>
+
+<script>
+const rawQuestions = [
+  // --- BASIC (1 to 30) ---
+  {
+    category: "Shell Basics",
+    difficulty: "basic",
+    type: "single",
+    question: "Which of the following describes the core role of a Linux Shell?",
+    options: ["The graphical desktop manager", "The command-line interpreter executing user commands", "The kernel module managing CPU scheduling", "The file system layout standard"],
+    correct: [1],
+    hint: "It acts as a bridge between the user typing commands and the operating system kernel.",
+    explanation: "A shell is a command-line interpreter that reads user inputs and executes the corresponding OS system calls or utilities."
+  },
+  {
+    category: "Shell Basics",
+    difficulty: "basic",
+    type: "single",
+    question: "What does 'Bash' stand for?",
+    options: ["Basic Shell Helper", "Bourne Again Shell", "Binary Advanced Shell", "Base Access Shell"],
+    correct: [1],
+    hint: "It's an enhanced open-source replacement for the original Bourne shell (sh).",
+    explanation: "Bash stands for 'Bourne Again Shell', created by Brian Fox as an enhanced replacement for sh."
+  },
+  {
+    category: "Shell Basics",
+    difficulty: "basic",
+    type: "single",
+    question: "Which line MUST be at the very top of a script to execute it using Bash?",
+    options: ["#bash/bin", "#!/bin/bash", "// bin/bash", "import bash"],
+    correct: [1],
+    hint: "It starts with a shebang (#!).",
+    explanation: "The shebang `#!/bin/bash` instructs the operating system loader to execute the script using the Bash interpreter."
+  },
+  {
+    category: "Shell Basics",
+    difficulty: "basic",
+    type: "tf",
+    question: "In Bash scripts, comments start with the '#' character.",
+    options: ["True", "False"],
+    correct: [0],
+    hint: "Consider how notes/comments are written in shell scripts.",
+    explanation: "Lines starting with `#` (except for the shebang line on line 1) are treated as non-executing comments."
+  },
+  {
+    category: "Shell Basics",
+    difficulty: "basic",
+    type: "single",
+    question: "Which special variable holds the exit status of the most recently executed command?",
+    options: ["$!", "$#", "$?", "$$"],
+    correct: [2],
+    hint: "It returns 0 for success and non-zero for failure.",
+    explanation: "`$?` stores the exit status code of the last executed command or process."
+  },
+  {
+    category: "Variables",
+    difficulty: "basic",
+    type: "single",
+    question: "What is the CORRECT syntax to assign the string 'Linux' to a variable named `os` in Bash?",
+    options: ["os = Linux", "os=Linux", "set os = 'Linux'", "var os = Linux"],
+    correct: [1],
+    hint: "Bash variable assignment does NOT allow spaces around the `=` sign.",
+    explanation: "In Bash, variable assignment syntax is `name=value`. Spaces around `=` cause syntax errors."
+  },
+  {
+    category: "Variables",
+    difficulty: "basic",
+    type: "single",
+    question: "How do you access the value stored in the variable named `COUNT`?",
+    options: ["%COUNT%", "&COUNT", "$COUNT", "COUNT.val"],
+    correct: [2],
+    hint: "Prefix the variable name with a special dollar symbol.",
+    explanation: "Referencing a variable's content requires prefixing its identifier with `$` (e.g., `$COUNT`)."
+  },
+  {
+    category: "Variables",
+    difficulty: "basic",
+    type: "single",
+    question: "Which command makes a local variable accessible to child processes spawned by the current shell?",
+    options: ["share", "publish", "export", "global"],
+    correct: [2],
+    hint: "It promotes a variable to an environment variable.",
+    explanation: "`export` marks variables to be passed down into the environment of child processes."
+  },
+  {
+    category: "Variables",
+    difficulty: "basic",
+    type: "single",
+    question: "Inside a shell script, what does `$1` represent?",
+    options: ["The script's process ID", "The total number of parameters", "The first command-line argument passed to the script", "The exit code of line 1"],
+    correct: [2],
+    hint: "Positional parameters access passed command line arguments.",
+    explanation: "`$1` represents the first positional parameter/argument passed to a script."
+  },
+  {
+    category: "Input and Output",
+    difficulty: "basic",
+    type: "single",
+    question: "Which command displays text or variable values on standard output?",
+    options: ["read", "echo", "write", "show"],
+    correct: [1],
+    hint: "It echoes back text passed to it.",
+    explanation: "`echo` is the standard shell built-in used to print arguments to standard output."
+  },
+  {
+    category: "Input and Output",
+    difficulty: "basic",
+    type: "single",
+    question: "Which command reads a line of input from standard input and assigns it to a variable?",
+    options: ["input", "get", "read", "scan"],
+    correct: [2],
+    hint: "It reads user input from the terminal.",
+    explanation: "`read` reads data typed into standard input and assigns it to specified variables."
+  },
+  {
+    category: "Input and Output",
+    difficulty: "basic",
+    type: "single",
+    question: "What is the standard file descriptor number for Standard Error (`stderr`)?",
+    options: ["0", "1", "2", "3"],
+    correct: [2],
+    hint: "stdin is 0, stdout is 1...",
+    explanation: "File descriptor 0 is `stdin`, 1 is `stdout`, and 2 is `stderr`."
+  },
+  {
+    category: "Input and Output",
+    difficulty: "basic",
+    type: "single",
+    question: "Which operator OVERWRITES the target file with standard output?",
+    options: [">>", ">", "<", "2>"],
+    correct: [1],
+    hint: "Single arrow overwrites; double arrow appends.",
+    explanation: "`>` redirects standard output, truncating/overwriting the target file if it exists."
+  },
+  {
+    category: "Input and Output",
+    difficulty: "basic",
+    type: "single",
+    question: "Which operator APPENDS standard output to the end of a file without overwriting existing content?",
+    options: [">>", ">", "&>", "<"],
+    correct: [0],
+    hint: "Uses two right-angle brackets.",
+    explanation: "`>>` appends stdout content to the bottom of the destination file."
+  },
+  {
+    category: "Operators",
+    difficulty: "basic",
+    type: "single",
+    question: "In double-bracket `[[ ]]` expressions, which operator checks if two strings are identical?",
+    options: ["-eq", "==", "-same", "is"],
+    correct: [1],
+    hint: "`==` is for strings, while `-eq` is for numeric comparison.",
+    explanation: "`==` tests string equality inside conditional expressions, whereas `-eq` is for integer comparison."
+  },
+  {
+    category: "Conditional Statements",
+    difficulty: "basic",
+    type: "single",
+    question: "What keyword marks the end of an `if` block in shell scripts?",
+    options: ["endif", "fi", "done", "esac"],
+    correct: [1],
+    hint: "It is 'if' spelled backwards.",
+    explanation: "An `if` conditional block in shell scripts is formally closed by `fi`."
+  },
+  {
+    category: "Conditional Statements",
+    difficulty: "basic",
+    type: "single",
+    question: "What keyword is used for 'else if' branches in Bash `if` blocks?",
+    options: ["else if", "elseif", "elif", "case"],
+    correct: [2],
+    hint: "It is a 4-letter contraction.",
+    explanation: "`elif` is the keyword used to check additional conditional branches within an `if` block."
+  },
+  {
+    category: "Loops",
+    difficulty: "basic",
+    type: "single",
+    question: "Which keywords delineate the start and end of a loop body (`for` or `while`)?",
+    options: ["begin ... end", "{ ... }", "do ... done", "start ... finish"],
+    correct: [2],
+    hint: "'do' something until it is 'done'.",
+    explanation: "Bash loop bodies execute commands placed between `do` and `done`."
+  },
+  {
+    category: "Loops",
+    difficulty: "basic",
+    type: "single",
+    question: "Which loop type continues running as long as its test condition evaluates to TRUE (status code 0)?",
+    options: ["until", "while", "for", "select"],
+    correct: [1],
+    hint: "It runs 'while' the condition holds true.",
+    explanation: "A `while` loop executes as long as its conditional command evaluates successfully (exit status 0)."
+  },
+  {
+    category: "File and Directory Operations",
+    difficulty: "basic",
+    type: "single",
+    question: "Which command prints the current absolute working directory path?",
+    options: ["ls", "cd", "pwd", "dir"],
+    correct: [2],
+    hint: "Print Working Directory.",
+    explanation: "`pwd` prints the path of the current working directory."
+  },
+  {
+    category: "File and Directory Operations",
+    difficulty: "basic",
+    type: "single",
+    question: "Which command creates a new empty file if it does not exist, or updates its modification timestamp?",
+    options: ["mkdir", "touch", "create", "cat"],
+    correct: [1],
+    hint: "It 'touches' the file.",
+    explanation: "`touch` creates an empty file if non-existent or updates access/modification timestamps."
+  },
+  {
+    category: "File and Directory Operations",
+    difficulty: "basic",
+    type: "single",
+    question: "Which option allows `rm` to recursively remove directories and their contents?",
+    options: ["-r", "-d", "-f", "-a"],
+    correct: [0],
+    hint: "Short for recursive.",
+    explanation: "`rm -r` (or `-R`) recursively deletes directories and sub-contents."
+  },
+  {
+    category: "File and Directory Operations",
+    difficulty: "basic",
+    type: "single",
+    question: "Which command outputs the complete content of a text file to stdout?",
+    options: ["head", "tail", "cat", "read"],
+    correct: [2],
+    hint: "Short for concatenate.",
+    explanation: "`cat` reads files sequentially and prints their contents to standard output."
+  },
+  {
+    category: "File and Directory Operations",
+    difficulty: "basic",
+    type: "single",
+    question: "How do you display only the FIRST 10 lines of a file named `log.txt`?",
+    options: ["tail log.txt", "head log.txt", "cat -10 log.txt", "top log.txt"],
+    correct: [1],
+    hint: "The opposite of 'tail'.",
+    explanation: "`head` prints the top lines (default 10) of a file."
+  },
+  {
+    category: "Text Processing",
+    difficulty: "basic",
+    type: "single",
+    question: "Which utility searches for text patterns within files using regular expressions?",
+    options: ["find", "grep", "sed", "awk"],
+    correct: [1],
+    hint: "Global Regular Expression Print.",
+    explanation: "`grep` searches text for lines matching specified patterns."
+  },
+  {
+    category: "Pipes and Command Chaining",
+    difficulty: "basic",
+    type: "single",
+    question: "What does the pipe operator `|` do in Linux shell commands?",
+    options: ["Redirects stderr to stdout", "Passes stdout of the left command as stdin to the right command", "Executes commands in parallel", "Appends text to a file"],
+    correct: [1],
+    hint: "It channels output from one process into input for another.",
+    explanation: "`|` streams standard output of the left command directly into standard input of the right command."
+  },
+  {
+    category: "Pipes and Command Chaining",
+    difficulty: "basic",
+    type: "single",
+    question: "Which operator executes the second command ONLY IF the first command succeeds (returns exit code 0)?",
+    options: [";", "||", "&&", "&"],
+    correct: [2],
+    hint: "Logical AND operator.",
+    explanation: "`cmd1 && cmd2` runs `cmd2` only if `cmd1` returns an exit code of 0 (success)."
+  },
+  {
+    category: "Process Management",
+    difficulty: "basic",
+    type: "single",
+    question: "Which command lists active processes in the current shell session?",
+    options: ["jobs", "ps", "kill", "top"],
+    correct: [1],
+    hint: "Short for Process Status.",
+    explanation: "`ps` displays information about active processes."
+  },
+  {
+    category: "Process Management",
+    difficulty: "basic",
+    type: "single",
+    question: "Appending which symbol to the end of a command executes it in the background?",
+    options: ["%", "&", "#", "@"],
+    correct: [1],
+    hint: "Ampersand symbol.",
+    explanation: "Adding `&` at the end of a command runs the job asynchronously in the background."
+  },
+  {
+    category: "Debugging",
+    difficulty: "basic",
+    type: "tf",
+    question: "Executing `bash -x script.sh` prints each command prior to its execution for debugging.",
+    options: ["True", "False"],
+    correct: [0],
+    hint: "Trace flag for debugging script execution.",
+    explanation: "True! `bash -x` enables shell execution tracing, printing expanded commands before running them."
+  },
+
+  // --- MEDIUM / INTERMEDIATE (31 to 60) ---
+  {
+    category: "Variables",
+    difficulty: "medium",
+    type: "multi",
+    question: "Which of the following special variables are correctly identified? (Select ALL that apply)",
+    options: [
+      "$# - Total number of positional parameters passed to script",
+      "$@ - Expands to all positional parameters as separate quoted words",
+      "$$ - Process ID (PID) of the active shell script",
+      "$! - Exit status of the last executed command"
+    ],
+    correct: [0, 1, 2],
+    hint: "Notice that $! represents the background process PID, not exit status ($?).",
+    explanation: "`$#` is param count, `$@` preserves separate parameters, `$$` is current PID. `$!` is the PID of the most recent background job."
+  },
+  {
+    category: "Variables",
+    difficulty: "medium",
+    type: "single",
+    question: "What is the key difference between `\"$*\"` and `\"$@\"` when enclosed in double quotes?",
+    options: [
+      "\"$*\" expands parameters into separate words; \"$@\" joins them into a single string",
+      "\"$*\" joins all parameters into a single string separated by IFS; \"$@\" preserves them as distinct words",
+      "They behave identically in all execution contexts",
+      "\"$*\" excludes positional parameter $1"
+    ],
+    correct: [1],
+    hint: "Think about argument separation when iterating inside loops.",
+    explanation: "`\"$*\"` joins parameters into one single string delimited by IFS. `\"$@\"` preserves parameters as distinct strings."
+  },
+  {
+    category: "Input and Output",
+    difficulty: "medium",
+    type: "single",
+    question: "Which redirection syntax redirects BOTH standard output (`stdout`) and standard error (`stderr`) to `output.log` in Bash?",
+    options: ["&> output.log", ">2&1 output.log", "1+2> output.log", "out+err> output.log"],
+    correct: [0],
+    hint: "Shorthand for combining stdout and stderr into one file.",
+    explanation: "`&> output.log` (or `> output.log 2>&1`) redirects both file descriptors 1 and 2 to the specified file."
+  },
+  {
+    category: "Conditional Statements",
+    difficulty: "medium",
+    type: "single",
+    question: "What is the advantage of extended test syntax `[[ $str == a* ]]` over standard test `[ $str == a* ]`?",
+    options: [
+      "`[[ ]]` supports glob pattern matching without word-splitting errors; `[ ]` attempts literal filename expansion",
+      "`[ ]` supports regex pattern matching; `[[ ]]` does not",
+      "`[[ ]]` requires all variables to be integers",
+      "Both function identically in every context"
+    ],
+    correct: [0],
+    hint: "Single bracket is the test command; double bracket is a Bash keyword supporting pattern matching.",
+    explanation: "`[[ ]]` supports pattern matching (globs/regex) and prevents unexpected word splitting or globbing."
+  },
+  {
+    category: "Operators",
+    difficulty: "medium",
+    type: "single",
+    question: "Which file test operator checks if a target path exists AND is a regular file?",
+    options: ["-d file", "-f file", "-e file", "-s file"],
+    correct: [1],
+    hint: "`-e` checks general existence; which checks regular File type?",
+    explanation: "`-f` returns true if path exists and is a regular file (not directory or socket)."
+  },
+  {
+    category: "Operators",
+    difficulty: "medium",
+    type: "single",
+    question: "Which test operator checks if a string variable `STR` is non-empty (length > 0)?",
+    options: ["-z \"$STR\"", "-n \"$STR\"", "-e \"$STR\"", "-s \"$STR\""],
+    correct: [1],
+    hint: "-z checks for Zero length; -n checks for Non-zero length.",
+    explanation: "`-n` returns true if string length is non-zero. `-z` returns true if string is zero-length/empty."
+  },
+  {
+    category: "Loops",
+    difficulty: "medium",
+    type: "single",
+    question: "How does an `until` loop differ from a `while` loop in shell scripting?",
+    options: [
+      "An `until` loop runs while the condition returns TRUE.",
+      "An `until` loop continues running as long as the test condition is FALSE (non-zero status code).",
+      "An `until` loop executes only once max.",
+      "An `until` loop cannot use `break` statements."
+    ],
+    correct: [1],
+    hint: "It executes 'until' the test condition becomes true.",
+    explanation: "An `until` loop executes commands as long as the test condition returns a non-zero (false) exit status."
+  },
+  {
+    category: "Conditional Statements",
+    difficulty: "medium",
+    type: "single",
+    question: "In a `case` statement, what symbol terminates each pattern clause?",
+    options: [";;", "::", "endcase", "esac"],
+    correct: [0],
+    hint: "Double punctuation mark.",
+    explanation: "Each pattern clause block in a `case` statement must end with double semicolons `;;`."
+  },
+  {
+    category: "Functions",
+    difficulty: "medium",
+    type: "single",
+    question: "How do you declare a variable inside a function so it does NOT affect global scope?",
+    options: ["private myvar=\"val\"", "local myvar=\"val\"", "var myvar=\"val\"", "scoped myvar=\"val\""],
+    correct: [1],
+    hint: "Scope qualifier keyword for function variables.",
+    explanation: "`local myvar=\"val\"` restricts variable scope exclusively to the function in which it is defined."
+  },
+  {
+    category: "Functions",
+    difficulty: "medium",
+    type: "tf",
+    question: "The `return` command in a Bash function can directly return string data like 'Hello' to caller variables.",
+    options: ["True", "False"],
+    correct: [1],
+    hint: "Functions return integer exit status codes (0-255), not text strings.",
+    explanation: "False! `return` sets integer exit status (0-255). Output text strings using `echo` or `printf` and capture via command substitution."
+  },
+  {
+    category: "Text Processing",
+    difficulty: "medium",
+    type: "single",
+    question: "Which `sed` command performs in-place stream editing to replace 'foo' with 'bar' globally across `data.txt`?",
+    options: [
+      "sed 's/foo/bar/g' data.txt",
+      "sed -i 's/foo/bar/g' data.txt",
+      "sed -e 'replace foo bar' data.txt",
+      "sed --write 's/foo/bar/' data.txt"
+    ],
+    correct: [1],
+    hint: "Which flag stands for In-place file modification?",
+    explanation: "`sed -i 's/foo/bar/g' file` modifies the file in-place (`-i`) using global substitution (`g`)."
+  },
+  {
+    category: "Text Processing",
+    difficulty: "medium",
+    type: "single",
+    question: "Which `awk` snippet prints the second column of a comma-separated file `data.csv`?",
+    options: [
+      "awk -F',' '{print $2}' data.csv",
+      "awk -d ',' '{print column(2)}' data.csv",
+      "awk '{field=2}' data.csv",
+      "awk -cut 2 data.csv"
+    ],
+    correct: [0],
+    hint: "-F sets field separator delimiter.",
+    explanation: "`awk -F',' '{print $2}'` sets field separator to `,` and prints column 2 (`$2`)."
+  },
+  {
+    category: "Text Processing",
+    difficulty: "medium",
+    type: "single",
+    question: "How do you count the total number of lines in `server.log` using standard text tools?",
+    options: ["count -l server.log", "wc -l server.log", "lines server.log", "grep --count server.log"],
+    correct: [1],
+    hint: "Word Count utility with line flag.",
+    explanation: "`wc -l` counts line breaks within the target file."
+  },
+  {
+    category: "Text Processing",
+    difficulty: "medium",
+    type: "single",
+    question: "What is the primary effect of running `sort -u` on input data?",
+    options: [
+      "Sorts input in reverse order",
+      "Sorts input numerically",
+      "Sorts input and removes duplicate lines",
+      "Sorts uppercase characters first"
+    ],
+    correct: [2],
+    hint: "-u stands for unique.",
+    explanation: "`sort -u` sorts text lines while omitting duplicate entries."
+  },
+  {
+    category: "Pipes and Command Chaining",
+    difficulty: "medium",
+    type: "single",
+    question: "What is the recommended modern command substitution syntax in Bash scripts?",
+    options: ["$(command)", "${command}", "exec(command)", "eval(command)"],
+    correct: [0],
+    hint: "Replaces legacy backticks `command`.",
+    explanation: "`$(command)` executes nested commands and substitutes standard output into expressions."
+  },
+  {
+    category: "Pipes and Command Chaining",
+    difficulty: "medium",
+    type: "single",
+    question: "What is the behavior of `cmd1 || cmd2` in command chaining?",
+    options: [
+      "cmd2 runs regardless of cmd1 output",
+      "cmd2 runs ONLY IF cmd1 fails (returns non-zero exit status)",
+      "Both commands execute concurrently",
+      "cmd2 runs only if cmd1 succeeds"
+    ],
+    correct: [1],
+    hint: "Logical OR short-circuiting operator.",
+    explanation: "`||` short-circuits: `cmd2` executes only if `cmd1` returns a non-zero exit code (failure)."
+  },
+  {
+    category: "Regular Expressions",
+    difficulty: "medium",
+    type: "single",
+    question: "In standard regular expressions, what does the symbol `^` anchor?",
+    options: ["End of a line", "Beginning of a line", "Any single digit", "Literal caret character"],
+    correct: [1],
+    hint: "Anchor character for line start.",
+    explanation: "`^` anchors matching patterns to the start of a line."
+  },
+  {
+    category: "Regular Expressions",
+    difficulty: "medium",
+    type: "single",
+    question: "In regex pattern matching, what does `$` anchor?",
+    options: ["Start of file", "End of a line", "Variable evaluation", "Numeric character class"],
+    correct: [1],
+    hint: "Opposite line anchor to `^`.",
+    explanation: "`$` anchors matching patterns to the end of a line."
+  },
+  {
+    category: "Process Management",
+    difficulty: "medium",
+    type: "single",
+    question: "Which command sends a termination signal (SIGTERM by default) to process ID 1234?",
+    options: ["stop 1234", "kill 1234", "end 1234", "terminate 1234"],
+    correct: [1],
+    hint: "Sends OS signals to target PIDs.",
+    explanation: "`kill 1234` sends the default SIGTERM signal to PID 1234."
+  },
+  {
+    category: "Process Management",
+    difficulty: "medium",
+    type: "single",
+    question: "Which command keeps a background process running even after the user logs out?",
+    options: ["bg", "fg", "nohup", "jobs"],
+    correct: [2],
+    hint: "No Hang Up.",
+    explanation: "`nohup` ignores HUP (Hangup) signals, allowing background tasks to continue after shell logout."
+  },
+  {
+    category: "Debugging",
+    difficulty: "medium",
+    type: "single",
+    question: "What does setting `set -e` at the start of a script enforce?",
+    options: ["Echoes commands before execution", "Exits the script immediately if any command returns a non-zero exit status", "Treats unset variables as errors", "Ignores syntax errors"],
+    correct: [1],
+    hint: "e stands for Exit on error.",
+    explanation: "`set -e` causes script execution to terminate immediately if any command fails (non-zero status)."
+  },
+  {
+    category: "Debugging",
+    difficulty: "medium",
+    type: "single",
+    question: "What does `set -u` enforce during script execution?",
+    options: [
+      "Disables usage of root permissions",
+      "Treats unset or uninitialized variables as fatal errors and aborts execution",
+      "Converts all string outputs to uppercase",
+      "Executes script in user-only context"
+    ],
+    correct: [1],
+    hint: "u stands for Unset variables.",
+    explanation: "`set -u` causes Bash to raise errors and exit when referencing uninitialized variables."
+  },
+  {
+    category: "Advanced Bash",
+    difficulty: "medium",
+    type: "single",
+    question: "How do you declare an indexed array in Bash containing 'apple', 'banana', 'cherry'?",
+    options: [
+      "fruits=(apple banana cherry)",
+      "fruits=[\"apple\", \"banana\", \"cherry\"]",
+      "array fruits = \"apple\", \"banana\", \"cherry\"",
+      "fruits = {apple, banana, cherry}"
+    ],
+    correct: [0],
+    hint: "Bash array elements are space-separated within parentheses.",
+    explanation: "Bash indexed arrays are initialized as `arr=(val1 val2 val3)` with space separation."
+  },
+  {
+    category: "Advanced Bash",
+    difficulty: "medium",
+    type: "single",
+    question: "How do you access ALL elements stored in an indexed array named `ARR`?",
+    options: ["${ARR}", "${ARR[@]}", "$ARR[*]", "$ARR.all()"],
+    correct: [1],
+    hint: "Index subscript @ or * enclosed in curly braces.",
+    explanation: "`\"${ARR[@]}\"` expands to all elements of the array as separate words."
+  },
+  {
+    category: "Advanced Bash",
+    difficulty: "medium",
+    type: "single",
+    question: "What construct provides multiline string input directly into a command (e.g., `cat << EOF`)?",
+    options: ["Here String", "Here Document (Here-doc)", "Subshell redirection", "Process substitution"],
+    correct: [1],
+    hint: "Uses `<< MARKER` syntax.",
+    explanation: "A Here Document (`<<EOF`) passes multiline content directly to command standard input."
+  },
+  {
+    category: "Advanced Bash",
+    difficulty: "medium",
+    type: "single",
+    question: "Which operator passes a single string into standard input using 'Here String' syntax?",
+    options: ["<<<", "<<", "<|", "<="],
+    correct: [0],
+    hint: "Triple left-angle bracket.",
+    explanation: "`<<<` is the Here String operator passing variable or literal strings directly to stdin."
+  },
+  {
+    category: "Advanced Bash",
+    difficulty: "medium",
+    type: "single",
+    question: "Which configuration file is executed for interactive, non-login Bash shell sessions?",
+    options: ["/etc/profile", "~/.bash_profile", "~/.bashrc", "~/.bash_logout"],
+    correct: [2],
+    hint: "rc stands for Run Commands.",
+    explanation: "`~/.bashrc` is automatically executed for interactive non-login shell instances."
+  },
+  {
+    category: "Advanced Bash",
+    difficulty: "medium",
+    type: "single",
+    question: "Which command shifts positional parameters to the left (e.g., `$2` becomes `$1`)?",
+    options: ["pop", "shift", "rotate", "next"],
+    correct: [1],
+    hint: "Commonly used in argument parsing loops.",
+    explanation: "`shift` discards positional parameter `$1` and re-indexes remaining arguments down by 1."
+  },
+  {
+    category: "Text Processing",
+    difficulty: "medium",
+    type: "single",
+    question: "Which utility builds and executes command lines from standard input lines?",
+    options: ["xargs", "pipe", "exec", "collect"],
+    correct: [0],
+    hint: "Constructs parameter argument lists from stdin input.",
+    explanation: "`xargs` converts lines from standard input into arguments for specified commands."
+  },
+  {
+    category: "Text Processing",
+    difficulty: "medium",
+    type: "single",
+    question: "How do you extract character positions 1 through 5 from `input.txt` using `cut`?",
+    options: ["cut -c 1-5 input.txt", "cut -f 1-5 input.txt", "cut -b 1,5 input.txt", "cut -d 1-5 input.txt"],
+    correct: [0],
+    hint: "-c option selects characters.",
+    explanation: "`cut -c 1-5` extracts character ranges 1 to 5 from each line."
+  },
+
+  // --- ADVANCED (61 to 90) ---
+  {
+    category: "Debugging",
+    difficulty: "advanced",
+    type: "single",
+    question: "What is the exact effect of enabling `set -o pipefail` in a script?",
+    options: [
+      "It disables pipes completely",
+      "Pipeline status returns a failure code if ANY command in the pipeline fails, not just the last one",
+      "It automatically retries failed pipeline commands",
+      "It logs pipeline metrics"
+    ],
+    correct: [1],
+    hint: "By default, shell pipelines only return exit status of the final rightmost command.",
+    explanation: "By default, pipeline return status is the status of the last command. `pipefail` makes pipeline return the exit code of the rightmost command that failed."
+  },
+  {
+    category: "Advanced Bash",
+    difficulty: "advanced",
+    type: "single",
+    question: "How do you declare an ASSOCIATIVE ARRAY (key-value dictionary) in Bash?",
+    options: [
+      "declare -a mymap",
+      "declare -A mymap",
+      "assoc mymap",
+      "mymap=dict()"
+    ],
+    correct: [1],
+    hint: "Uppercase -A vs lowercase -a.",
+    explanation: "`declare -A` instantiates an associative array. Lowercase `-a` creates an indexed array."
+  },
+  {
+    category: "Advanced Bash",
+    difficulty: "advanced",
+    type: "single",
+    question: "What does Process Substitution syntax `<(command)` do?",
+    options: [
+      "Runs command in background and ignores errors",
+      "Exposes command stdout as a temporary file descriptor path (e.g. `/dev/fd/N`) for reading",
+      "Substitutes text inside script files",
+      "Kills background processes"
+    ],
+    correct: [1],
+    hint: "Useful for passing command output into utilities expecting file paths.",
+    explanation: "`<(cmd)` generates a named pipe/file descriptor allowing tools expecting file parameters to process command outputs directly."
+  },
+  {
+    category: "Advanced Bash",
+    difficulty: "advanced",
+    type: "single",
+    question: "When is the command in `trap 'rm -f /tmp/test.tmp' EXIT` executed?",
+    options: [
+      "Only when SIGINT (Ctrl+C) occurs",
+      "Only when SIGTERM is received",
+      "Whenever the script exits or terminates for ANY reason",
+      "Only on syntax error"
+    ],
+    correct: [2],
+    hint: "EXIT signal pseudo-event.",
+    explanation: "Trapping `EXIT` executes specified cleanup code upon script termination under any condition."
+  },
+  {
+    category: "Advanced Bash",
+    difficulty: "advanced",
+    type: "single",
+    question: "What does parameter expansion `${VAR:-default}` evaluate to if `VAR` is unset or empty?",
+    options: [
+      "It assigns 'default' permanently to VAR",
+      "It returns 'default' as the evaluated value without modifying VAR",
+      "It raises a syntax error",
+      "It unsets VAR"
+    ],
+    correct: [1],
+    hint: "Compare with := which assigns value permanently.",
+    explanation: "`${VAR:-default}` evaluates to 'default' if `VAR` is empty/unset, leaving `VAR` unchanged. `${VAR:=default}` assigns 'default' to `VAR`."
+  },
+  {
+    category: "Advanced Bash",
+    difficulty: "advanced",
+    type: "single",
+    question: "Which parameter expansion construct strips the SHORTEST matching prefix pattern from `VAR`?",
+    options: ["${VAR#pattern}", "${VAR##pattern}", "${VAR%pattern}", "${VAR%%pattern}"],
+    correct: [0],
+    hint: "# removes prefix; % removes suffix. Single symbol means shortest match.",
+    explanation: "`${VAR#pattern}` strips shortest prefix match. `##` strips longest prefix. `%` strips shortest suffix. `%%` strips longest suffix."
+  },
+  {
+    category: "Advanced Bash",
+    difficulty: "advanced",
+    type: "single",
+    question: "What is the key difference between executing commands in `( command )` vs `{ command; }`?",
+    options: [
+      "`( )` runs in a separate subshell process; `{ }` runs within the CURRENT shell environment",
+      "`{ }` runs in a subshell; `( )` runs in current shell",
+      "`( )` ignores variables; `{ }` exports variables",
+      "There is no operational difference"
+    ],
+    correct: [0],
+    hint: "Parentheses isolate execution state in subshells.",
+    explanation: "Parentheses `( )` spawn a child subshell isolating environment changes. Braces `{ }` run commands in the existing shell process."
+  },
+  {
+    category: "Advanced Bash",
+    difficulty: "advanced",
+    type: "single",
+    question: "Which built-in command parses short options and flags passed to a script?",
+    options: ["getopts", "parseargs", "optfetch", "flagscan"],
+    correct: [0],
+    hint: "Standard POSIX option processing loop tool.",
+    explanation: "`getopts` parses command-line options and positional parameters in shell scripts."
+  },
+  {
+    category: "Process Management",
+    difficulty: "advanced",
+    type: "single",
+    question: "What special variable holds the PID of the MOST RECENT background process launched?",
+    options: ["$$", "$!", "$?", "$#"],
+    correct: [1],
+    hint: "Exclamation mark symbol.",
+    explanation: "`$!` stores the Process ID (PID) of the most recently executed background job."
+  },
+  {
+    category: "Advanced Bash",
+    difficulty: "advanced",
+    type: "multi",
+    question: "Which flags constitute standard 'Bash Strict Mode'? (Select ALL that apply)",
+    options: [
+      "set -e",
+      "set -u",
+      "set -o pipefail",
+      "set -x"
+    ],
+    correct: [0, 1, 2],
+    hint: "Tracing (-x) is for debug logging, not safety enforcement.",
+    explanation: "Unofficial Bash Strict Mode consists of `set -e`, `set -u`, and `set -o pipefail`."
+  },
+  {
+    category: "Advanced Bash",
+    difficulty: "advanced",
+    type: "single",
+    question: "What occurs when evaluating `${VAR:?\"Error message\"}` if `VAR` is unset or null?",
+    options: [
+      "Prints warning but continues script execution",
+      "Prints \"Error message\" to stderr and ABORTS script execution immediately",
+      "Assigns \"Error message\" to VAR",
+      "Creates a log file entry"
+    ],
+    correct: [1],
+    hint: "Question mark parameter expansion for mandatory variable validation.",
+    explanation: "`${VAR:?message}` prints error message to stderr and exits script if variable is unset or empty."
+  },
+  {
+    category: "Regular Expressions",
+    difficulty: "advanced",
+    type: "single",
+    question: "Which option must be passed to `grep` to enable Extended Regular Expressions (ERE, like `+`, `?`, `|`)?",
+    options: ["grep -E", "grep -F", "grep -P", "grep -X"],
+    correct: [0],
+    hint: "E stands for Extended.",
+    explanation: "`grep -E` (or `egrep`) interprets search patterns as Extended Regular Expressions."
+  },
+  {
+    category: "Text Processing",
+    difficulty: "advanced",
+    type: "single",
+    question: "What is the function of `grep -F` (or `fgrep`)?",
+    options: [
+      "Searches files recursively",
+      "Interprets search pattern as FIXED strings (disables regex parsing for higher speed)",
+      "Searches only filenames",
+      "Formats output columns"
+    ],
+    correct: [1],
+    hint: "F stands for Fixed strings.",
+    explanation: "`grep -F` disables regular expression parsing and evaluates literal fixed strings."
+  },
+  {
+    category: "Text Processing",
+    difficulty: "advanced",
+    type: "single",
+    question: "In `awk`, which block executes BEFORE input records are read and processed?",
+    options: ["START", "BEGIN", "INIT", "PRE"],
+    correct: [1],
+    hint: "Begins execution ahead of records.",
+    explanation: "`BEGIN { ... }` block in `awk` executes once prior to reading input records."
+  },
+  {
+    category: "Text Processing",
+    difficulty: "advanced",
+    type: "single",
+    question: "In `awk`, what internal built-in variable tracks the total number of records (lines) processed so far?",
+    options: ["$NR", "NR", "NF", "$NF"],
+    correct: [1],
+    hint: "Number of Records.",
+    explanation: "`NR` is `awk`'s internal variable for Number of Records (line count). `NF` tracks field count."
+  },
+  {
+    category: "Text Processing",
+    difficulty: "advanced",
+    type: "single",
+    question: "What does `$NF` reference inside an `awk` action block?",
+    options: ["The total line count", "The value of the LAST field/column of the current record", "The input filename", "The first field"],
+    correct: [1],
+    hint: "NF is total column count; dollar prefix evaluates that field index.",
+    explanation: "`NF` stores column count; `$NF` accesses data inside the last field of the current record."
+  },
+  {
+    category: "File and Directory Operations",
+    difficulty: "advanced",
+    type: "single",
+    question: "Which `find` command locates all `.log` files modified within the last 24 hours and deletes them?",
+    options: [
+      "find /var/log -name \"*.log\" -mtime -1 -delete",
+      "find /var/log -name \"*.log\" -mtime +1 -rm",
+      "find /var/log -file \"*.log\" -time 1day -exec del",
+      "search /var/log '*.log' -newer 24h -delete"
+    ],
+    correct: [0],
+    hint: "-mtime -1 matches modified within 24 hours.",
+    explanation: "`find /path -name \"*.log\" -mtime -1 -delete` matches files modified under 24h ago (`-mtime -1`) and removes them."
+  },
+  {
+    category: "Advanced Bash",
+    difficulty: "advanced",
+    type: "single",
+    question: "What is the purpose of `exec 3>logfile.txt` in a shell script?",
+    options: [
+      "Executes logfile.txt on line 3",
+      "Opens custom file descriptor 3 pointing to `logfile.txt` for writing",
+      "Duplicates stdin to descriptor 3",
+      "Throws error on file descriptor 3"
+    ],
+    correct: [1],
+    hint: "Custom file descriptors beyond 0, 1, 2.",
+    explanation: "`exec 3>file` opens custom file descriptor 3 bound to output target `file`."
+  },
+  {
+    category: "Advanced Bash",
+    difficulty: "advanced",
+    type: "single",
+    question: "How do you test if a variable `VAR` is declared/set in modern Bash, distinguishing empty string from unset?",
+    options: [
+      "[[ -v VAR ]]",
+      "[[ -n $VAR ]]",
+      "[[ $VAR == set ]]",
+      "isSet(VAR)"
+    ],
+    correct: [0],
+    hint: "-v test operator in double brackets.",
+    explanation: "`[[ -v VAR ]]` returns true if variable `VAR` has been declared/set, regardless of whether its value is empty."
+  },
+  {
+    category: "Advanced Bash",
+    difficulty: "advanced",
+    type: "single",
+    question: "Which parameter expansion construct returns the string length of variable `STR`?",
+    options: ["${#STR}", "${STR.length}", "${count:STR}", "${@STR}"],
+    correct: [0],
+    hint: "Pound sign inside parameter expansion braces.",
+    explanation: "`${#STR}` returns character count length of string variable `STR`."
+  },
+  {
+    category: "Advanced Bash",
+    difficulty: "advanced",
+    type: "single",
+    question: "What parameter expansion construct extracts a substring starting at index 3 with length 5 from `VAR`?",
+    options: ["${VAR:3:5}", "${VAR[3..5]}", "${VAR.substr(3,5)}", "${VAR#3:5}"],
+    correct: [0],
+    hint: "Colon offset and length parameter syntax.",
+    explanation: "`${VAR:offset:length}` extracts substring starting at specified zero-indexed offset."
+  },
+  {
+    category: "Process Management",
+    difficulty: "advanced",
+    type: "single",
+    question: "Which locations hold scheduled user cron entries under Linux?",
+    options: ["/etc/crontab or /var/spool/cron/crontabs/", "/bin/cron/", "/usr/local/cron.conf", "/etc/jobs.d/"],
+    correct: [0],
+    hint: "Files managed via `crontab -e` utility.",
+    explanation: "Cron schedules are maintained in `/etc/crontab` and `/var/spool/cron/crontabs/username`."
+  },
+  {
+    category: "Advanced Bash",
+    difficulty: "advanced",
+    type: "single",
+    question: "What is the crontab expression to run a command every day at 2:30 AM?",
+    options: ["30 2 * * *", "2 30 * * *", "0 2 30 * *", "* 2 30 * *"],
+    correct: [0],
+    hint: "Cron field order: Minute Hour Day-of-Month Month Day-of-Week.",
+    explanation: "Crontab field order is: Minute (30) Hour (2) Day-of-Month (*) Month (*) Day-of-Week (*)."
+  },
+  {
+    category: "Advanced Bash",
+    difficulty: "advanced",
+    type: "single",
+    question: "What is the outcome of parameter substitution `${VAR//foo/bar}`?",
+    options: [
+      "Replaces ONLY the FIRST occurrence of 'foo' with 'bar'",
+      "Replaces ALL occurrences of 'foo' with 'bar' within VAR",
+      "Splits VAR into array at 'foo'",
+      "Deletes VAR if equal to 'foo'"
+    ],
+    correct: [1],
+    hint: "Single slash replaces first match; double slash replaces globally.",
+    explanation: "`${VAR//pattern/replacement}` globally replaces all matches of pattern in variable string."
+  },
+  {
+    category: "Advanced Bash",
+    difficulty: "advanced",
+    type: "tf",
+    question: "Inside double brackets `[[ ]]`, unquoted variable expansions are safe from word splitting and globbing.",
+    options: ["True", "False"],
+    correct: [0],
+    hint: "Key feature differentiating `[[ ]]` from traditional `[ ]` test command.",
+    explanation: "True! `[[ ]]` prevents automatic word splitting and filename expansion on unquoted variables."
+  },
+  {
+    category: "Advanced Bash",
+    difficulty: "advanced",
+    type: "single",
+    question: "Which system signal CANNOT be caught, trapped, or ignored by shell scripts?",
+    options: ["SIGINT", "SIGTERM", "SIGKILL (signal 9)", "SIGHUP"],
+    correct: [2],
+    hint: "Unconditional kill signal sent by OS kernel.",
+    explanation: "SIGKILL (signal 9) and SIGSTOP cannot be trapped or caught by applications/scripts."
+  },
+  {
+    category: "Input and Output",
+    difficulty: "advanced",
+    type: "single",
+    question: "What is the main role of `tee` in shell pipelines?",
+    options: [
+      "Splits command execution across CPU threads",
+      "Reads stdin and writes it simultaneously to stdout AND specified files",
+      "Combines stderr with stdout streams",
+      "Compresses pipeline stream"
+    ],
+    correct: [1],
+    hint: "Acts like a T-shaped pipe fitting.",
+    explanation: "`tee` duplicates standard input stream, writing output to files while simultaneously forwarding stdout down the pipeline."
+  },
+  {
+    category: "Advanced Bash",
+    difficulty: "advanced",
+    type: "single",
+    question: "What does the special built-in command `:` do in Bash?",
+    options: [
+      "Causes a syntax error",
+      "Does nothing and always returns exit status 0 (true)",
+      "Enters interactive debug mode",
+      "Pauses execution for 1 second"
+    ],
+    correct: [1],
+    hint: "Null command / NO-OP operator.",
+    explanation: "`:` is the shell null command; it does nothing and returns exit code 0. Used in infinite loops (`while :; do ...`) or fallbacks."
+  },
+  {
+    category: "Advanced Bash",
+    difficulty: "advanced",
+    type: "single",
+    question: "How do you detach a running background job from the active shell table to prevent termination upon logout without `nohup`?",
+    options: [
+      "cmd & disown",
+      "cmd | detach",
+      "isolate cmd",
+      "fork cmd"
+    ],
+    correct: [0],
+    hint: "`disown` removes jobs from shell active job table.",
+    explanation: "`disown` detaches active background jobs from the shell job table, preventing SIGHUP signals upon logout."
+  },
+  {
+    category: "Advanced Bash",
+    difficulty: "advanced",
+    type: "single",
+    question: "Which command lists all exported environment variables in the active shell environment?",
+    options: ["env", "showvar", "list --vars", "vars"],
+    correct: [0],
+    hint: "Short for environment.",
+    explanation: "`env` (or `printenv`) lists all exported environment variables."
+  }
+];
+
+let currentIndex = 0;
+let userAnswers = new Array(rawQuestions.length).fill(null);
+let historyData = JSON.parse(localStorage.getItem('shell_quiz_history') || '[]');
+
+function initQuiz() {
+  renderQuestion();
+  updateProgress();
+  loadHistory();
+}
+
+function switchTab(tabName) {
+  document.querySelectorAll('.nav-tabs .tab-btn').forEach(b => {
+    b.classList.remove('active');
+    b.setAttribute('aria-selected', 'false');
+  });
+  
+  const activeTab = document.getElementById(`tab-${tabName}`);
+  if(activeTab) {
+    activeTab.classList.add('active');
+    activeTab.setAttribute('aria-selected', 'true');
+  }
+
+  document.getElementById('view-quiz').classList.add('hidden');
+  document.getElementById('view-review').classList.add('hidden');
+  document.getElementById('view-stats').classList.add('hidden');
+
+  if (tabName === 'quiz') document.getElementById('view-quiz').classList.remove('hidden');
+  if (tabName === 'review') {
+    document.getElementById('view-review').classList.remove('hidden');
+    renderReview('all');
+  }
+  if (tabName === 'stats') {
+    document.getElementById('view-stats').classList.remove('hidden');
+    renderStats();
+  }
+}
+
+function updateProgress() {
+  const percent = ((currentIndex) / rawQuestions.length) * 100;
+  document.getElementById('progress-bar').style.width = `${percent}%`;
+  document.getElementById('question-number').innerText = `Question ${currentIndex + 1} of${rawQuestions.length}`;
+}
+
+function renderQuestion() {
+  const q = rawQuestions[currentIndex];
+  document.getElementById('question-text').innerHTML = formatText(q.question);
+  
+  const badge = document.getElementById('difficulty-badge');
+  badge.innerText = q.difficulty.toUpperCase();
+  badge.className = `q-badge badge-${q.difficulty}`;
+
+  const container = document.getElementById('options-container');
+  container.innerHTML = '';
+
+  const answered = userAnswers[currentIndex] !== null;
+
+  q.options.forEach((opt, idx) => {
+    const label = document.createElement('label');
+    label.className = 'option-item';
+    
+    const isMulti = q.type === 'multi';
+    const input = document.createElement('input');
+    input.type = isMulti ? 'checkbox' : 'radio';
+    input.name = 'quiz-opt';
+    input.value = idx;
+    
+    if (answered) {
+      input.disabled = true;
+      if (isMulti) {
+        if (userAnswers[currentIndex].includes(idx)) input.checked = true;
+      } else {
+        if (userAnswers[currentIndex] === idx) input.checked = true;
+      }
+
+      if (q.correct.includes(idx)) {
+        label.classList.add('correct');
+      } else if ((isMulti && userAnswers[currentIndex].includes(idx)) || userAnswers[currentIndex] === idx) {
+        label.classList.add('incorrect');
+      }
+    }
+
+    label.appendChild(input);
+    const span = document.createElement('span');
+    span.innerHTML = formatText(opt);
+    label.appendChild(span);
+
+    container.appendChild(label);
+  });
+
+  document.getElementById('hint-container').classList.add('hidden');
+  document.getElementById('feedback-container').classList.add('hidden');
+
+  if (answered) {
+    showFeedback();
+    document.getElementById('btn-submit').classList.add('hidden');
+    document.getElementById('btn-next').classList.remove('hidden');
+  } else {
+    document.getElementById('btn-submit').classList.remove('hidden');
+    document.getElementById('btn-next').classList.add('hidden');
+  }
+
+  updateProgress();
+}
+
+function formatText(str) {
+  return str.replace(/`([^`]+)`/g, '<code>$1</code>');
+}
+
+function toggleHint() {
+  const box = document.getElementById('hint-container');
+  if (box.classList.contains('hidden')) {
+    box.innerHTML = `💡 <strong>Hint:</strong> ${formatText(rawQuestions[currentIndex].hint)}`;
+    box.classList.remove('hidden');
+  } else {
+    box.classList.add('hidden');
+  }
+}
+
+function submitAnswer() {
+  const q = rawQuestions[currentIndex];
+  const selected = [];
+  document.querySelectorAll('input[name="quiz-opt"]:checked').forEach(i => {
+    selected.push(parseInt(i.value));
+  });
+
+  if (selected.length === 0) {
+    alert("Please select an answer before submitting.");
+    return;
+  }
+
+  if (q.type === 'multi') {
+    userAnswers[currentIndex] = selected;
+  } else {
+    userAnswers[currentIndex] = selected[0];
+  }
+
+  renderQuestion();
+
+  if (currentIndex === rawQuestions.length - 1) {
+    saveAttempt();
+  }
+}
+
+function showFeedback() {
+  const q = rawQuestions[currentIndex];
+  const ans = userAnswers[currentIndex];
+  let isCorrect = false;
+
+  if (q.type === 'multi') {
+    isCorrect = Array.isArray(ans) && 
+      ans.length === q.correct.length && 
+      ans.every(val => q.correct.includes(val));
+  } else {
+    isCorrect = ans === q.correct[0];
+  }
+
+  const fb = document.getElementById('feedback-container');
+  fb.className = `feedback-box ${isCorrect ? 'correct' : 'incorrect'}`;
+  fb.innerHTML = `
+    <strong>${isCorrect ? '✅ Correct!' : '❌ Incorrect'}</strong><br>
+    ${formatText(q.explanation)}
+  `;
+  fb.classList.remove('hidden');
+}
+
+function nextQuestion() {
+  if (currentIndex < rawQuestions.length - 1) {
+    currentIndex++;
+    renderQuestion();
+  } else {
+    switchTab('stats');
+  }
+}
+
+function calculateScore() {
+  let correctCount = 0;
+  const categoryStats = {};
+
+  rawQuestions.forEach((q, idx) => {
+    if (!categoryStats[q.category]) {
+      categoryStats[q.category] = { total: 0, correct: 0 };
+    }
+    categoryStats[q.category].total++;
+
+    const ans = userAnswers[idx];
+    let isCorrect = false;
+
+    if (q.type === 'multi') {
+      isCorrect = Array.isArray(ans) && 
+        ans.length === q.correct.length && 
+        ans.every(val => q.correct.includes(val));
+    } else {
+      isCorrect = ans === q.correct[0];
+    }
+
+    if (isCorrect) {
+      correctCount++;
+      categoryStats[q.category].correct++;
+    }
+  });
+
+  return {
+    total: rawQuestions.length,
+    correct: correctCount,
+    percentage: ((correctCount / rawQuestions.length) * 100).toFixed(1),
+    categories: categoryStats
+  };
+}
+
+function getGrade(pct) {
+  if (pct >= 90) return { grade: 'A+', text: 'Mastery Level' };
+  if (pct >= 80) return { grade: 'A', text: 'Proficient' };
+  if (pct >= 70) return { grade: 'B', text: 'Intermediate Competency' };
+  if (pct >= 60) return { grade: 'C', text: 'Basic Understanding' };
+  return { grade: 'F', text: 'Needs Further Practice' };
+}
+
+function renderStats() {
+  const res = calculateScore();
+  const gradeInfo = getGrade(res.percentage);
+
+  let categoryRows = '';
+  for (const [cat, data] of Object.entries(res.categories)) {
+    const catPct = ((data.correct / data.total) * 100).toFixed(0);
+    categoryRows += `
+      <tr>
+        <td>${cat}</td>
+        <td>${data.correct} / ${data.total}</td>
+        <td>${catPct}%</td>
+      </tr>
+    `;
+  }
+
+  document.getElementById('quiz-summary-content').innerHTML = `
+    <div class="summary-grid">
+      <div class="metric-card">
+        <div>Score</div>
+        <div class="val">${res.correct} / ${res.total}</div>
+      </div>
+      <div class="metric-card">
+        <div>Percentage</div>
+        <div class="val">${res.percentage}%</div>
+      </div>
+      <div class="metric-card">
+        <div>Grade</div>
+        <div class="val">${gradeInfo.grade}</div>
+        <small style="color: var(--text-muted);">${gradeInfo.text}</small>
+      </div>
+    </div>
+
+    <h3 style="margin-top: 20px; color: var(--accent);">Topic / Skill Breakdown</h3>
+    <table class="breakdown-table">
+      <thead>
+        <tr>
+          <th>Category</th>
+          <th>Score</th>
+          <th>Accuracy</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${categoryRows}
+      </tbody>
+    </table>
+  `;
+}
+
+function saveAttempt() {
+  const res = calculateScore();
+  const attempt = {
+    date: new Date().toLocaleString(),
+    score: `${res.correct}/${res.total}`,
+    pct: `${res.percentage}%`
+  };
+  historyData.unshift(attempt);
+  if (historyData.length > 10) historyData.pop();
+  localStorage.setItem('shell_quiz_history', JSON.stringify(historyData));
+  loadHistory();
+}
+
+function loadHistory() {
+  const container = document.getElementById('history-container');
+  if (historyData.length === 0) {
+    container.innerHTML = '<li><span>No prior attempts found.</span></li>';
+    return;
+  }
+  container.innerHTML = historyData.map(item => `
+    <li>
+      <span>📅 ${item.date}</span>
+      <span><strong>${item.score}</strong> (${item.pct})</span>
+    </li>
+  `).join('');
+}
+
+function clearHistory() {
+  localStorage.removeItem('shell_quiz_history');
+  historyData = [];
+  loadHistory();
+}
+
+function renderReview(filter) {
+  const container = document.getElementById('review-container');
+  let html = '';
+
+  rawQuestions.forEach((q, idx) => {
+    const ans = userAnswers[idx];
+    let isCorrect = false;
+
+    if (q.type === 'multi') {
+      isCorrect = Array.isArray(ans) && 
+        ans.length === q.correct.length && 
+        ans.every(val => q.correct.includes(val));
+    } else {
+      isCorrect = ans === q.correct[0];
+    }
+
+    if (filter === 'incorrect' && isCorrect) return;
+    if (filter === 'basic' && q.difficulty !== 'basic') return;
+    if (filter === 'medium' && q.difficulty !== 'medium') return;
+    if (filter === 'advanced' && q.difficulty !== 'advanced') return;
+
+    const userAnsText = ans === null ? 'Not Answered' : 
+      (Array.isArray(ans) ? ans.map(i => q.options[i]).join(', ') : q.options[ans]);
+
+    const correctAnsText = q.correct.map(i => q.options[i]).join(', ');
+
+    html += `
+      <div class="review-item ${isCorrect ? 'pass' : 'fail'}">
+        <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+          <strong>Q${idx + 1}. [${q.difficulty.toUpperCase()}] ${q.category}</strong>
+          <span>${isCorrect ? '✅ Correct' : '❌ Incorrect'}</span>
+        </div>
+        <p style="margin-bottom: 8px;">${formatText(q.question)}</p>
+        <div style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 4px;">
+          <strong>Your Answer:</strong> ${formatText(userAnsText)}
+        </div>
+        <div style="font-size: 0.9rem; color: var(--success); margin-bottom: 8px;">
+          <strong>Correct Answer:</strong> ${formatText(correctAnsText)}
+        </div>
+        <div style="font-size: 0.85rem; background: #000; padding: 8px; border-radius: 4px; border: 1px solid var(--border-color);">
+          <strong>Explanation:</strong> ${formatText(q.explanation)}
+        </div>
+      </div>
+    `;
+  });
+
+  container.innerHTML = html || '<p>No questions match the selected filter.</p>';
+}
+
+function filterReview(type, btnElement) {
+  if (btnElement) {
+    const parent = btnElement.parentElement;
+    parent.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    btnElement.classList.add('active');
+  }
+  renderReview(type);
+}
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowRight') {
+    const btnNext = document.getElementById('btn-next');
+    if (btnNext && !btnNext.classList.contains('hidden')) nextQuestion();
+  }
+});
+
+window.onload = initQuiz;
+</script>
+</body>
+</html>
